@@ -9,9 +9,18 @@ import SwiftUI
 
 @main
 struct AnnotatorApp: App {
+    @StateObject private var imageStore = ImageStoreController(folder: nil)
+    @StateObject private var annotationController = AnnotationController()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView()
+                .environmentObject(imageStore)
+                .environmentObject(annotationController)
+        }
+        .commands {
+            SidebarCommands()
+            ToolbarCommands()
         }
     }
 }

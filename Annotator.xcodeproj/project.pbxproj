@@ -3,16 +3,31 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		B98969B825F002BD00455136 /* AnnotatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98969B725F002BD00455136 /* AnnotatorApp.swift */; };
-		B98969BA25F002BD00455136 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98969B925F002BD00455136 /* ContentView.swift */; };
+		B98969BA25F002BD00455136 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98969B925F002BD00455136 /* MainView.swift */; };
 		B98969BC25F002C200455136 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B98969BB25F002C200455136 /* Assets.xcassets */; };
 		B98969BF25F002C200455136 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B98969BE25F002C200455136 /* Preview Assets.xcassets */; };
 		B98969CB25F002C200455136 /* AnnotatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98969CA25F002C200455136 /* AnnotatorTests.swift */; };
 		B98969D625F002C200455136 /* AnnotatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98969D525F002C200455136 /* AnnotatorUITests.swift */; };
+		B98969E725F0086C00455136 /* ReadSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98969E625F0086C00455136 /* ReadSize.swift */; };
+		B98969F125F024E700455136 /* TapLocationGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98969F025F024E700455136 /* TapLocationGesture.swift */; };
+		B9914BF825F0F28700E9C8CE /* AnnotationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9914BF725F0F28700E9C8CE /* AnnotationController.swift */; };
+		B9914C0025F0F35B00E9C8CE /* ImageStoreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9914BFF25F0F35B00E9C8CE /* ImageStoreController.swift */; };
+		B9914C0825F0FD5D00E9C8CE /* FilterField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9914C0725F0FD5D00E9C8CE /* FilterField.swift */; };
+		B9914C1125F1154200E9C8CE /* InspectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9914C1025F1154200E9C8CE /* InspectorView.swift */; };
+		B9914C1F25F1211F00E9C8CE /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9914C1E25F1211F00E9C8CE /* ImageView.swift */; };
+		B9914C2A25F13C0100E9C8CE /* Sequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9914C2925F13C0000E9C8CE /* Sequence.swift */; };
+		B9914C4025F148E000E9C8CE /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = B9914C3F25F148E000E9C8CE /* SFSafeSymbols */; };
+		B99DF26E25F14F1700A7C43E /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99DF26D25F14F1700A7C43E /* SidebarView.swift */; };
+		B99DF27425F150EF00A7C43E /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99DF27325F150EF00A7C43E /* AnnotationView.swift */; };
+		B9B8C55F25F0CFC20035DF57 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B8C55E25F0CFC20035DF57 /* Annotation.swift */; };
+		B9B8C56525F0D01A0035DF57 /* ComplexModule in Frameworks */ = {isa = PBXBuildFile; productRef = B9B8C56425F0D01A0035DF57 /* ComplexModule */; };
+		B9B8C56725F0D01A0035DF57 /* RealModule in Frameworks */ = {isa = PBXBuildFile; productRef = B9B8C56625F0D01A0035DF57 /* RealModule */; };
+		B9B8C56925F0D01A0035DF57 /* Numerics in Frameworks */ = {isa = PBXBuildFile; productRef = B9B8C56825F0D01A0035DF57 /* Numerics */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,10 +47,23 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		B9914C3425F1468000E9C8CE /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		B98969B425F002BD00455136 /* Annotator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Annotator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B98969B725F002BD00455136 /* AnnotatorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotatorApp.swift; sourceTree = "<group>"; };
-		B98969B925F002BD00455136 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		B98969B925F002BD00455136 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		B98969BB25F002C200455136 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B98969BE25F002C200455136 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B98969C025F002C200455136 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -46,6 +74,17 @@
 		B98969D125F002C200455136 /* AnnotatorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AnnotatorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B98969D525F002C200455136 /* AnnotatorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotatorUITests.swift; sourceTree = "<group>"; };
 		B98969D725F002C200455136 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B98969E625F0086C00455136 /* ReadSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadSize.swift; sourceTree = "<group>"; };
+		B98969F025F024E700455136 /* TapLocationGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapLocationGesture.swift; sourceTree = "<group>"; };
+		B9914BF725F0F28700E9C8CE /* AnnotationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationController.swift; sourceTree = "<group>"; };
+		B9914BFF25F0F35B00E9C8CE /* ImageStoreController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStoreController.swift; sourceTree = "<group>"; };
+		B9914C0725F0FD5D00E9C8CE /* FilterField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterField.swift; sourceTree = "<group>"; };
+		B9914C1025F1154200E9C8CE /* InspectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorView.swift; sourceTree = "<group>"; };
+		B9914C1E25F1211F00E9C8CE /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageView.swift; path = "Annotator/Supporting View/ImageView.swift"; sourceTree = SOURCE_ROOT; };
+		B9914C2925F13C0000E9C8CE /* Sequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sequence.swift; sourceTree = "<group>"; };
+		B99DF26D25F14F1700A7C43E /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
+		B99DF27325F150EF00A7C43E /* AnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
+		B9B8C55E25F0CFC20035DF57 /* Annotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +92,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9B8C56725F0D01A0035DF57 /* RealModule in Frameworks */,
+				B9B8C56925F0D01A0035DF57 /* Numerics in Frameworks */,
+				B9914C4025F148E000E9C8CE /* SFSafeSymbols in Frameworks */,
+				B9B8C56525F0D01A0035DF57 /* ComplexModule in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,6 +123,7 @@
 				B98969C925F002C200455136 /* AnnotatorTests */,
 				B98969D425F002C200455136 /* AnnotatorUITests */,
 				B98969B525F002BD00455136 /* Products */,
+				B9914C3E25F148E000E9C8CE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -97,7 +141,15 @@
 			isa = PBXGroup;
 			children = (
 				B98969B725F002BD00455136 /* AnnotatorApp.swift */,
-				B98969B925F002BD00455136 /* ContentView.swift */,
+				B98969B925F002BD00455136 /* MainView.swift */,
+				B99DF26D25F14F1700A7C43E /* SidebarView.swift */,
+				B99DF27325F150EF00A7C43E /* AnnotationView.swift */,
+				B9914C1025F1154200E9C8CE /* InspectorView.swift */,
+				B99DF27825F1517100A7C43E /* Models */,
+				B9914BF625F0F27700E9C8CE /* Controllers */,
+				B99DF27925F1519300A7C43E /* Supporting View */,
+				B9B8C56D25F0D06A0035DF57 /* Extensions */,
+				B99DF27725F1511800A7C43E /* Helpers */,
 				B98969BB25F002C200455136 /* Assets.xcassets */,
 				B98969C025F002C200455136 /* Info.plist */,
 				B98969C125F002C200455136 /* Annotator.entitlements */,
@@ -132,6 +184,56 @@
 			path = AnnotatorUITests;
 			sourceTree = "<group>";
 		};
+		B9914BF625F0F27700E9C8CE /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B9914BFF25F0F35B00E9C8CE /* ImageStoreController.swift */,
+				B9914BF725F0F28700E9C8CE /* AnnotationController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		B9914C3E25F148E000E9C8CE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B99DF27725F1511800A7C43E /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				B98969F025F024E700455136 /* TapLocationGesture.swift */,
+				B98969E625F0086C00455136 /* ReadSize.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		B99DF27825F1517100A7C43E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B9B8C55E25F0CFC20035DF57 /* Annotation.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		B99DF27925F1519300A7C43E /* Supporting View */ = {
+			isa = PBXGroup;
+			children = (
+				B9914C1E25F1211F00E9C8CE /* ImageView.swift */,
+				B9914C0725F0FD5D00E9C8CE /* FilterField.swift */,
+			);
+			path = "Supporting View";
+			sourceTree = "<group>";
+		};
+		B9B8C56D25F0D06A0035DF57 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B9914C2925F13C0000E9C8CE /* Sequence.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -142,12 +244,19 @@
 				B98969B025F002BD00455136 /* Sources */,
 				B98969B125F002BD00455136 /* Frameworks */,
 				B98969B225F002BD00455136 /* Resources */,
+				B9914C3425F1468000E9C8CE /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = Annotator;
+			packageProductDependencies = (
+				B9B8C56425F0D01A0035DF57 /* ComplexModule */,
+				B9B8C56625F0D01A0035DF57 /* RealModule */,
+				B9B8C56825F0D01A0035DF57 /* Numerics */,
+				B9914C3F25F148E000E9C8CE /* SFSafeSymbols */,
+			);
 			productName = Annotator;
 			productReference = B98969B425F002BD00455136 /* Annotator.app */;
 			productType = "com.apple.product-type.application";
@@ -219,6 +328,10 @@
 				Base,
 			);
 			mainGroup = B98969AB25F002BD00455136;
+			packageReferences = (
+				B9B8C56325F0D01A0035DF57 /* XCRemoteSwiftPackageReference "swift-numerics" */,
+				B9914C3B25F146CA00E9C8CE /* XCRemoteSwiftPackageReference "SFSafeSymbols" */,
+			);
 			productRefGroup = B98969B525F002BD00455136 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -261,7 +374,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B98969BA25F002BD00455136 /* ContentView.swift in Sources */,
+				B9914C1F25F1211F00E9C8CE /* ImageView.swift in Sources */,
+				B9914C0025F0F35B00E9C8CE /* ImageStoreController.swift in Sources */,
+				B98969E725F0086C00455136 /* ReadSize.swift in Sources */,
+				B9B8C55F25F0CFC20035DF57 /* Annotation.swift in Sources */,
+				B9914C1125F1154200E9C8CE /* InspectorView.swift in Sources */,
+				B99DF26E25F14F1700A7C43E /* SidebarView.swift in Sources */,
+				B99DF27425F150EF00A7C43E /* AnnotationView.swift in Sources */,
+				B9914BF825F0F28700E9C8CE /* AnnotationController.swift in Sources */,
+				B9914C2A25F13C0100E9C8CE /* Sequence.swift in Sources */,
+				B98969BA25F002BD00455136 /* MainView.swift in Sources */,
+				B98969F125F024E700455136 /* TapLocationGesture.swift in Sources */,
+				B9914C0825F0FD5D00E9C8CE /* FilterField.swift in Sources */,
 				B98969B825F002BD00455136 /* AnnotatorApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -585,6 +709,48 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B9914C3B25F146CA00E9C8CE /* XCRemoteSwiftPackageReference "SFSafeSymbols" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/piknotech/SFSafeSymbols";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.2;
+			};
+		};
+		B9B8C56325F0D01A0035DF57 /* XCRemoteSwiftPackageReference "swift-numerics" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-numerics";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B9914C3F25F148E000E9C8CE /* SFSafeSymbols */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B9914C3B25F146CA00E9C8CE /* XCRemoteSwiftPackageReference "SFSafeSymbols" */;
+			productName = SFSafeSymbols;
+		};
+		B9B8C56425F0D01A0035DF57 /* ComplexModule */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B9B8C56325F0D01A0035DF57 /* XCRemoteSwiftPackageReference "swift-numerics" */;
+			productName = ComplexModule;
+		};
+		B9B8C56625F0D01A0035DF57 /* RealModule */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B9B8C56325F0D01A0035DF57 /* XCRemoteSwiftPackageReference "swift-numerics" */;
+			productName = RealModule;
+		};
+		B9B8C56825F0D01A0035DF57 /* Numerics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B9B8C56325F0D01A0035DF57 /* XCRemoteSwiftPackageReference "swift-numerics" */;
+			productName = Numerics;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B98969AC25F002BD00455136 /* Project object */;
 }
