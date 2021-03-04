@@ -11,48 +11,43 @@ import AppKit
 struct ImageView: View {
     let url: URL
     
-    init(url: URL) {
-        self.url = url
-    }
+    @Binding var imageSize: CGSize
     
-    init?(path: String) {
-        guard let url = URL(string: path) else {
-            return nil
-        }
-        self.init(url: url)
-    }
-    
-    var image: NSImage {
+    var nsImage: NSImage {
         NSImage(byReferencing: url)
     }
     
-    var imageSize: CGSize? {
-        // with CGImageSource we avoid loading the whole image into memory
+    var body: some View {
+        Image(nsImage: nsImage)
+            .resizable()
+            .onAppear { imageSize = size }
+    }
+    
+    var size: CGSize {
         guard let source = CGImageSourceCreateWithURL(url as CFURL, nil) else {
-            return nil
+            fatalError("Cannot compute image size")
         }
         
         let propertiesOptions = [kCGImageSourceShouldCache: false] as CFDictionary
         guard let properties = CGImageSourceCopyPropertiesAtIndex(source, 0, propertiesOptions) as? [CFString: Any] else {
-            return nil
+            fatalError("Cannot compute image size")
         }
         
-        if let width = properties[kCGImagePropertyPixelWidth] as? CGFloat,
-           let height = properties[kCGImagePropertyPixelHeight] as? CGFloat {
+        if var width = properties[kCGImagePropertyPixelWidth] as? CGFloat,
+           var height = properties[kCGImagePropertyPixelHeight] as? CGFloat,
+           let orientation = properties[kCGImagePropertyOrientation] as? Int {
+            if orientation == 6 || orientation == 8 {
+                swap(&width, &height)
+            }
             return CGSize(width: width, height: height)
         } else {
-            return nil
+            fatalError("Cannot compute image size")
         }
-    }
-    
-    var body: some View {
-        Image(nsImage: image)
-            .resizable()
     }
 }
 
 struct ImageView_Previews: PreviewProvider {
     static var previews: some View {
-        ImageView(url: URL(string: "/Users/louislac/Downloads/im_01516.jpg")!)
+        ImageView(url: URL(string: "/Users/louislac/Downloads/im_01516.jpg")!, imageSize: .constant(.zero))
     }
 }

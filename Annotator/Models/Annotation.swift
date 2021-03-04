@@ -92,7 +92,7 @@ struct Object<C: Real> {
 struct Annotation<C: Real> {
     var imageURL: URL
     var objects: [Object<C>] = []
-    var imageSize: Size<Int>?
+    var imageSize: Size<C>?
 }
 
 // MARK: - Equatable Conformance
@@ -109,10 +109,22 @@ extension Annotation: Hashable { }
 // MARK: - Codable Conformance
 extension Point: Codable where C: Codable { }
 extension Size: Codable where C: Codable { }
-extension Box: Codable where C: Codable { }
 extension Keypoint: Codable where C: Codable { }
 extension Object: Codable where C: Codable { }
 extension Annotation: Codable where C: Codable { }
+
+extension Box: Codable where C: Codable {
+    enum Keys: String, CodingKey {
+        case origin, size
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: Keys.self)
+        let box = self.standardized()
+        try container.encode(box.origin, forKey: .origin)
+        try container.encode(box.size, forKey: .size)
+    }
+}
 
 // MARK: -
 // TODO: Tree structure for Annotation Display

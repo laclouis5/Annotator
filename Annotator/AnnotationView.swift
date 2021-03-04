@@ -11,14 +11,16 @@ struct AnnotationView: View {
     @EnvironmentObject private var store: ImageStoreController
     @EnvironmentObject private var annotation: AnnotationController
     
+    // FIXME: - Maybe replace by a concrete Optional struct `ImageData`?
     @State private var imageViewSize: CGSize = .zero
+    @State private var imageSize: CGSize = .zero
     
-    @GestureState private var rectangle: CGRect = .null
+    @GestureState private var rectangle: CGRect?
     
     var body: some View {
         Group {
             if let selection = store.selection {
-                ImageView(url: selection)
+                ImageView(url: selection, imageSize: $imageSize)
                     .aspectRatio(contentMode: .fit)
                     .overlay(overlaidView, alignment: .topLeading)
                     .readSize(onChange: { imageViewSize = $0 })
@@ -29,15 +31,22 @@ struct AnnotationView: View {
             }
         }
         .padding()
+        .onReceive(store.$selection) { selection in
+            if let selection = selection {
+                tryLoadAnnotationFrom(imageUrl: selection)
+            }
+        }
     }
     
     var overlaidView: some View {
         ZStack(alignment: .topLeading) {
-            Rectangle()
-                .stroke(lineWidth: 2)
-                .fill(Color.gray)
-                .frame(width: rectangle.width, height: rectangle.height)
-                .offset(x: rectangle.minX, y: rectangle.minY)
+            if let rectangle = rectangle {
+                Rectangle()
+                    .stroke(lineWidth: 2)
+                    .fill(Color.gray)
+                    .frame(width: rectangle.width, height: rectangle.height)
+                    .offset(x: rectangle.minX, y: rectangle.minY)
+            }
             
             objectsView
         }
@@ -50,12 +59,12 @@ struct AnnotationView: View {
                     .stroke(lineWidth: 2)
                     .fill(Color.white)
                     .frame(
-                        width: CGFloat(box.width),
-                        height: CGFloat(box.height)
+                        width: CGFloat(box.width) / imageSize.width * imageViewSize.width,
+                        height: CGFloat(box.height) / imageSize.height * imageViewSize.height
                     )
                     .offset(
-                        x: CGFloat(box.xMin),
-                        y: CGFloat(box.yMin)
+                        x: CGFloat(box.xMin) / imageSize.width * imageViewSize.width,
+                        y: CGFloat(box.yMin) / imageSize.height * imageViewSize.height
                     )
             }
         }
@@ -72,8 +81,31 @@ struct AnnotationView: View {
     func onDoubleClick(_ value: CGPoint) { }
     
     func onDragGestureEnded(_ value: DragGesture.Value) {
-        let box = Box<Double>(origin: value.startLocation, size: value.translation)
+        let origin = CGPoint(
+            x: value.startLocation.x / imageViewSize.width * imageSize.width,
+            y: value.startLocation.y / imageViewSize.height * imageSize.height
+        )
+        let size = CGSize(
+            width: value.translation.width / imageViewSize.width * imageSize.width,
+            height: value.translation.height / imageViewSize.height * imageSize.height
+        )
+        let box = Box<Double>(origin: origin, size: size)
+        
+        // FIXME: Should be encapsulated in the controller
         annotation.objects.append(Object<Double>(name: "text", box: box))
+        saveAnnotation()
+    }
+    
+    func saveAnnotation() {
+        DispatchQueue.global(qos: .background).async {
+            guard let url = store.selection else { return }
+            try? annotation.save(url, imageSize: imageSize)
+        }
+    }
+    
+    func tryLoadAnnotationFrom(imageUrl: URL) {
+        let url = imageUrl.deletingPathExtension().appendingPathExtension("json")
+        annotation.loadAnnotationFor(imageUrl: url)
     }
 }
 
