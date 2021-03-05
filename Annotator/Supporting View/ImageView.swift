@@ -11,7 +11,7 @@ import AppKit
 struct ImageView: View {
     let url: URL
     
-    @Binding var imageSize: CGSize
+    @Binding var imageSize: CGSize?
     
     var nsImage: NSImage {
         NSImage(byReferencing: url)
@@ -23,14 +23,14 @@ struct ImageView: View {
             .onAppear { imageSize = size }
     }
     
-    var size: CGSize {
+    var size: CGSize? {
         guard let source = CGImageSourceCreateWithURL(url as CFURL, nil) else {
-            fatalError("Cannot compute image size")
+            return nil
         }
         
         let propertiesOptions = [kCGImageSourceShouldCache: false] as CFDictionary
         guard let properties = CGImageSourceCopyPropertiesAtIndex(source, 0, propertiesOptions) as? [CFString: Any] else {
-            fatalError("Cannot compute image size")
+            return nil
         }
         
         if var width = properties[kCGImagePropertyPixelWidth] as? CGFloat,
@@ -41,7 +41,7 @@ struct ImageView: View {
             }
             return CGSize(width: width, height: height)
         } else {
-            fatalError("Cannot compute image size")
+            return nil
         }
     }
 }

@@ -46,5 +46,11 @@ struct SidebarView: View {
 struct SidebarView_Previews: PreviewProvider {
     static var previews: some View {
         SidebarView()
+            .environmentObject(
+                ImageStoreController(
+                    folder: URL(string: "/Users/louislac/Downloads/Biomass/2021/p0215_0914")
+                )
+            )
+            .frame(width: 200)
     }
 }

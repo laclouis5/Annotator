@@ -28,6 +28,8 @@
 		B9B8C56525F0D01A0035DF57 /* ComplexModule in Frameworks */ = {isa = PBXBuildFile; productRef = B9B8C56425F0D01A0035DF57 /* ComplexModule */; };
 		B9B8C56725F0D01A0035DF57 /* RealModule in Frameworks */ = {isa = PBXBuildFile; productRef = B9B8C56625F0D01A0035DF57 /* RealModule */; };
 		B9B8C56925F0D01A0035DF57 /* Numerics in Frameworks */ = {isa = PBXBuildFile; productRef = B9B8C56825F0D01A0035DF57 /* Numerics */; };
+		B9D54E1725F23624009B8648 /* TreeAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D54E1625F23624009B8648 /* TreeAnnotation.swift */; };
+		B9D54E1B25F23655009B8648 /* DisplayTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D54E1A25F23655009B8648 /* DisplayTree.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +87,8 @@
 		B99DF26D25F14F1700A7C43E /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
 		B99DF27325F150EF00A7C43E /* AnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
 		B9B8C55E25F0CFC20035DF57 /* Annotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
+		B9D54E1625F23624009B8648 /* TreeAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeAnnotation.swift; sourceTree = "<group>"; };
+		B9D54E1A25F23655009B8648 /* DisplayTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayTree.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,6 +217,8 @@
 			isa = PBXGroup;
 			children = (
 				B9B8C55E25F0CFC20035DF57 /* Annotation.swift */,
+				B9D54E1625F23624009B8648 /* TreeAnnotation.swift */,
+				B9D54E1A25F23655009B8648 /* DisplayTree.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -378,12 +384,14 @@
 				B9914C0025F0F35B00E9C8CE /* ImageStoreController.swift in Sources */,
 				B98969E725F0086C00455136 /* ReadSize.swift in Sources */,
 				B9B8C55F25F0CFC20035DF57 /* Annotation.swift in Sources */,
+				B9D54E1B25F23655009B8648 /* DisplayTree.swift in Sources */,
 				B9914C1125F1154200E9C8CE /* InspectorView.swift in Sources */,
 				B99DF26E25F14F1700A7C43E /* SidebarView.swift in Sources */,
 				B99DF27425F150EF00A7C43E /* AnnotationView.swift in Sources */,
 				B9914BF825F0F28700E9C8CE /* AnnotationController.swift in Sources */,
 				B9914C2A25F13C0100E9C8CE /* Sequence.swift in Sources */,
 				B98969BA25F002BD00455136 /* MainView.swift in Sources */,
+				B9D54E1725F23624009B8648 /* TreeAnnotation.swift in Sources */,
 				B98969F125F024E700455136 /* TapLocationGesture.swift in Sources */,
 				B9914C0825F0FD5D00E9C8CE /* FilterField.swift in Sources */,
 				B98969B825F002BD00455136 /* AnnotatorApp.swift in Sources */,
