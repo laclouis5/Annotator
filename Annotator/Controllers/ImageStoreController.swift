@@ -76,11 +76,4 @@ final class ImageStoreController: ObservableObject {
             .receive(on: DispatchQueue.main)
             .assign(to: &$selection)
     }
-    
-    /// Creates a binding that observes and update a property at the specified key-path.
-    /// - Parameter keyPath: The writeable key-path.
-    /// - Returns: A Binding updating the referenced propertyÒ.
-    func binding<T>(for keyPath: ReferenceWritableKeyPath<ImageStoreController, T>) -> Binding<T> {
-        Binding(get: { self[keyPath: keyPath] }, set: { self[keyPath: keyPath] = $0 })
-    }
 }

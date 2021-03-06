@@ -20,6 +20,7 @@ struct ImageView: View {
     var body: some View {
         Image(nsImage: nsImage)
             .resizable()
+            .aspectRatio(contentMode: .fit)
             .onAppear { imageSize = size }
     }
     

@@ -9,7 +9,10 @@ import Foundation
 import Combine
 
 final class AnnotationController: ObservableObject {
+    /// The current tree annotation.
     @Published var tree: KeypointTree
+    
+    /// The selected node.
     @Published var selection: KeypointNode?
     
     private let encoder: JSONEncoder = {
@@ -24,33 +27,73 @@ final class AnnotationController: ObservableObject {
         self.tree = tree
     }
     
-    func save(_ imageUrl: URL, imageSize: CGSize) throws {
-        let size = Size(cgSize: imageSize)
-        let annotation = AnnotationTree(imageUrl: imageUrl, tree: tree, imageSize: size)
-        let data = try encoder.encode(annotation)
-        let saveUrl = imageUrl.deletingPathExtension().appendingPathExtension("json")
-        try data.write(to: saveUrl)
+    /// Add a node to the curent selected node or to the root of the tree.
+    /// This action triggers `objectWillChange.send()` and saves the annotation to disk.
+    /// - Parameters:
+    ///   - node: The KeypointNode to add.
+    ///   - imageUrl: The URL of the image being annotated.
+    ///   - imageSize: The size of the image being annotated.
+    func addNode(_ node: KeypointNode, imageUrl: URL, imageSize: CGSize) {
+        objectWillChange.send()
+        if let selection = selection {
+            selection.children.append(node)
+            self.selection = node
+        } else if let root = tree.root {
+            root.children.append(node)
+            self.selection = node
+        } else {
+            tree.root = node
+            selection = node
+        }
+        
+        save(imageUrl, imageSize: imageSize)
     }
     
-    func load(fileUrl: URL) throws {
-        let data = try Data(contentsOf: fileUrl)
-        let annotation = try decoder.decode(AnnotationTree.self, from: data)
-        tree = annotation.tree
+    /// Saves the current tree to the specified URL in JSON format.
+    /// - Parameters:
+    ///   - imageUrl: The URL of the image being annotated.
+    ///   - imageSize: The size of the image being annotated.
+    func save(_ imageUrl: URL, imageSize: CGSize) {
+        guard !tree.isEmpty else { return }
+        
+        do {
+            let size = Size(cgSize: imageSize)
+            var annotation = AnnotationTree(imageUrl: imageUrl, tree: tree, imageSize: size)
+            annotation.resolveNodeNames()
+            let data = try encoder.encode(annotation)
+            let saveUrl = imageUrl.deletingPathExtension().appendingPathExtension("json")
+            try data.write(to: saveUrl)
+        } catch {
+            print("Error while writing annotation")
+        }
     }
     
-//    func save(_ imageURL: URL, imageSize: CGSize? = nil) throws {
-//        let size = imageSize.map(Size.init)
-//        let annotation = Annotation<Double>(imageURL: imageURL, objects: objects, imageSize: size)
-//
-//        let data = try encoder.encode(annotation)
-//
-//        let saveUrl = imageURL.deletingPathExtension().appendingPathExtension("json")
-//
-//        try data.write(to: saveUrl)
-//    }
-//
-//    func loadAnnotationFor(imageUrl: URL) {
-//        let annotation = try? decoder.decode(Annotation<Double>.self, from: Data(contentsOf: imageUrl))
-//        objects = annotation?.objects ?? []
-//    }
+    /// Load annotation from disk. This triggers a `objectWillChange.send()`.
+    /// - Parameter url: The annotation URL on disk.
+    func loadAnnotation(url: URL) {
+        do {
+            let data = try Data(contentsOf: url)
+            let annotation = try decoder.decode(AnnotationTree.self, from: data)
+            objectWillChange.send()
+            tree = annotation.tree
+            selection = tree.root
+        } catch {
+            reset()
+        }
+    }
+    
+    /// Load annotation from disk. This triggers a `objectWillChange.send()`.
+    /// - Parameter imageUrl: The image URL on disk. The annotation should have the
+    /// save name with a `.json` extension.
+    func loadAnnotation(forImageUrl imageUrl: URL) {
+        let url = imageUrl.deletingPathExtension().appendingPathExtension("json")
+        loadAnnotation(url: url)
+    }
+    
+    /// Reset both the annotation tree and the selected node to `nil`.
+    func reset() {
+        objectWillChange.send()
+        tree = .init()
+        selection = nil
+    }
 }

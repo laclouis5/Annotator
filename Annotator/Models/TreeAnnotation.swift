@@ -24,13 +24,17 @@ final class Node<Value>: ObservableObject {
 /// Tree must be declared as an Observable object to be able to update the views.
 /// A notification should be send via `objectWillChange.send()` each time
 /// the tree structure is modified (add a node, changed a value, ...).
-final class Tree<Value> {
-    var root: Node<Value>?
+final class Tree<Value>: ObservableObject {
+    @Published var root: Node<Value>?
 //    var id: UUID
     
     init(root: Node<Value>? = nil/*, id: UUID = UUID()*/) {
         self.root = root
 //        self.id = id
+    }
+    
+    var isEmpty: Bool {
+        root == nil
     }
 }
 
@@ -142,9 +146,22 @@ extension Tree: Identifiable { }
 typealias KeypointNode = Node<Keypoint<Double>>
 typealias KeypointTree = Tree<Keypoint<Double>>
 
-struct AnnotationTree: Equatable, Hashable, Codable, Identifiable {
+struct AnnotationTree: Equatable, Hashable, Codable {
     var imageUrl: URL
     var tree: KeypointTree
     var imageSize: Size<Double>?
-    var id: UUID = UUID()
+}
+
+extension AnnotationTree {
+    mutating func resolveNodeNames() {
+        tree.traverse { node in
+            if node === tree.root {
+                node.value.name = "root"
+            } else if node.children.isEmpty {
+                node.value.name = "leaf"
+            } else {
+                node.value.name = "part"
+            }
+        }
+    }
 }

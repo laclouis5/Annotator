@@ -24,12 +24,12 @@
 		B99DF26E25F14F1700A7C43E /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99DF26D25F14F1700A7C43E /* SidebarView.swift */; };
 		B99DF27425F150EF00A7C43E /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99DF27325F150EF00A7C43E /* AnnotationView.swift */; };
 		B9B8C55F25F0CFC20035DF57 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B8C55E25F0CFC20035DF57 /* Annotation.swift */; };
-		B9B8C56525F0D01A0035DF57 /* ComplexModule in Frameworks */ = {isa = PBXBuildFile; productRef = B9B8C56425F0D01A0035DF57 /* ComplexModule */; };
-		B9B8C56725F0D01A0035DF57 /* RealModule in Frameworks */ = {isa = PBXBuildFile; productRef = B9B8C56625F0D01A0035DF57 /* RealModule */; };
-		B9B8C56925F0D01A0035DF57 /* Numerics in Frameworks */ = {isa = PBXBuildFile; productRef = B9B8C56825F0D01A0035DF57 /* Numerics */; };
+		B9CDA44325F3F2BA00613662 /* DebugPrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CDA44225F3F2BA00613662 /* DebugPrint.swift */; };
 		B9D54E1725F23624009B8648 /* TreeAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D54E1625F23624009B8648 /* TreeAnnotation.swift */; };
 		B9D54E1B25F23655009B8648 /* DisplayTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D54E1A25F23655009B8648 /* DisplayTree.swift */; };
 		B9D54E2325F37994009B8648 /* ClickGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D54E2225F37993009B8648 /* ClickGesture.swift */; };
+		B9F1CBE325F3951C00395E29 /* AnnotationTreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F1CBE225F3951C00395E29 /* AnnotationTreeView.swift */; };
+		B9F1CBF725F3EDDF00395E29 /* RealModule in Frameworks */ = {isa = PBXBuildFile; productRef = B9F1CBF625F3EDDF00395E29 /* RealModule */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,14 +81,16 @@
 		B9914BFF25F0F35B00E9C8CE /* ImageStoreController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStoreController.swift; sourceTree = "<group>"; };
 		B9914C0725F0FD5D00E9C8CE /* FilterField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterField.swift; sourceTree = "<group>"; };
 		B9914C1025F1154200E9C8CE /* InspectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorView.swift; sourceTree = "<group>"; };
-		B9914C1E25F1211F00E9C8CE /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageView.swift; path = "Annotator/Supporting View/ImageView.swift"; sourceTree = SOURCE_ROOT; };
+		B9914C1E25F1211F00E9C8CE /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageView.swift; path = Annotator/AnnotationView/ImageView.swift; sourceTree = SOURCE_ROOT; };
 		B9914C2925F13C0000E9C8CE /* Sequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sequence.swift; sourceTree = "<group>"; };
 		B99DF26D25F14F1700A7C43E /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
 		B99DF27325F150EF00A7C43E /* AnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
 		B9B8C55E25F0CFC20035DF57 /* Annotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
+		B9CDA44225F3F2BA00613662 /* DebugPrint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugPrint.swift; sourceTree = "<group>"; };
 		B9D54E1625F23624009B8648 /* TreeAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeAnnotation.swift; sourceTree = "<group>"; };
 		B9D54E1A25F23655009B8648 /* DisplayTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayTree.swift; sourceTree = "<group>"; };
 		B9D54E2225F37993009B8648 /* ClickGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickGesture.swift; sourceTree = "<group>"; };
+		B9F1CBE225F3951C00395E29 /* AnnotationTreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationTreeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,10 +98,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B9B8C56725F0D01A0035DF57 /* RealModule in Frameworks */,
-				B9B8C56925F0D01A0035DF57 /* Numerics in Frameworks */,
+				B9F1CBF725F3EDDF00395E29 /* RealModule in Frameworks */,
 				B9914C4025F148E000E9C8CE /* SFSafeSymbols in Frameworks */,
-				B9B8C56525F0D01A0035DF57 /* ComplexModule in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,8 +147,7 @@
 				B98969B725F002BD00455136 /* AnnotatorApp.swift */,
 				B98969B925F002BD00455136 /* MainView.swift */,
 				B99DF26D25F14F1700A7C43E /* SidebarView.swift */,
-				B99DF27325F150EF00A7C43E /* AnnotationView.swift */,
-				B9914C1025F1154200E9C8CE /* InspectorView.swift */,
+				B9F1CBFA25F3EFB600395E29 /* AnnotationView */,
 				B99DF27825F1517100A7C43E /* Models */,
 				B9914BF625F0F27700E9C8CE /* Controllers */,
 				B99DF27925F1519300A7C43E /* Supporting View */,
@@ -226,7 +225,6 @@
 		B99DF27925F1519300A7C43E /* Supporting View */ = {
 			isa = PBXGroup;
 			children = (
-				B9914C1E25F1211F00E9C8CE /* ImageView.swift */,
 				B9914C0725F0FD5D00E9C8CE /* FilterField.swift */,
 			);
 			path = "Supporting View";
@@ -236,8 +234,20 @@
 			isa = PBXGroup;
 			children = (
 				B9914C2925F13C0000E9C8CE /* Sequence.swift */,
+				B9CDA44225F3F2BA00613662 /* DebugPrint.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		B9F1CBFA25F3EFB600395E29 /* AnnotationView */ = {
+			isa = PBXGroup;
+			children = (
+				B99DF27325F150EF00A7C43E /* AnnotationView.swift */,
+				B9F1CBE225F3951C00395E29 /* AnnotationTreeView.swift */,
+				B9914C1E25F1211F00E9C8CE /* ImageView.swift */,
+				B9914C1025F1154200E9C8CE /* InspectorView.swift */,
+			);
+			path = AnnotationView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,10 +268,8 @@
 			);
 			name = Annotator;
 			packageProductDependencies = (
-				B9B8C56425F0D01A0035DF57 /* ComplexModule */,
-				B9B8C56625F0D01A0035DF57 /* RealModule */,
-				B9B8C56825F0D01A0035DF57 /* Numerics */,
 				B9914C3F25F148E000E9C8CE /* SFSafeSymbols */,
+				B9F1CBF625F3EDDF00395E29 /* RealModule */,
 			);
 			productName = Annotator;
 			productReference = B98969B425F002BD00455136 /* Annotator.app */;
@@ -335,8 +343,8 @@
 			);
 			mainGroup = B98969AB25F002BD00455136;
 			packageReferences = (
-				B9B8C56325F0D01A0035DF57 /* XCRemoteSwiftPackageReference "swift-numerics" */,
 				B9914C3B25F146CA00E9C8CE /* XCRemoteSwiftPackageReference "SFSafeSymbols" */,
+				B9F1CBF525F3EDDF00395E29 /* XCRemoteSwiftPackageReference "swift-numerics" */,
 			);
 			productRefGroup = B98969B525F002BD00455136 /* Products */;
 			projectDirPath = "";
@@ -384,7 +392,9 @@
 				B9D54E2325F37994009B8648 /* ClickGesture.swift in Sources */,
 				B9914C0025F0F35B00E9C8CE /* ImageStoreController.swift in Sources */,
 				B98969E725F0086C00455136 /* ReadSize.swift in Sources */,
+				B9F1CBE325F3951C00395E29 /* AnnotationTreeView.swift in Sources */,
 				B9B8C55F25F0CFC20035DF57 /* Annotation.swift in Sources */,
+				B9CDA44325F3F2BA00613662 /* DebugPrint.swift in Sources */,
 				B9D54E1B25F23655009B8648 /* DisplayTree.swift in Sources */,
 				B9914C1125F1154200E9C8CE /* InspectorView.swift in Sources */,
 				B99DF26E25F14F1700A7C43E /* SidebarView.swift in Sources */,
@@ -727,7 +737,7 @@
 				minimumVersion = 2.1.2;
 			};
 		};
-		B9B8C56325F0D01A0035DF57 /* XCRemoteSwiftPackageReference "swift-numerics" */ = {
+		B9F1CBF525F3EDDF00395E29 /* XCRemoteSwiftPackageReference "swift-numerics" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-numerics";
 			requirement = {
@@ -743,20 +753,10 @@
 			package = B9914C3B25F146CA00E9C8CE /* XCRemoteSwiftPackageReference "SFSafeSymbols" */;
 			productName = SFSafeSymbols;
 		};
-		B9B8C56425F0D01A0035DF57 /* ComplexModule */ = {
+		B9F1CBF625F3EDDF00395E29 /* RealModule */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B9B8C56325F0D01A0035DF57 /* XCRemoteSwiftPackageReference "swift-numerics" */;
-			productName = ComplexModule;
-		};
-		B9B8C56625F0D01A0035DF57 /* RealModule */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B9B8C56325F0D01A0035DF57 /* XCRemoteSwiftPackageReference "swift-numerics" */;
+			package = B9F1CBF525F3EDDF00395E29 /* XCRemoteSwiftPackageReference "swift-numerics" */;
 			productName = RealModule;
-		};
-		B9B8C56825F0D01A0035DF57 /* Numerics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B9B8C56325F0D01A0035DF57 /* XCRemoteSwiftPackageReference "swift-numerics" */;
-			productName = Numerics;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

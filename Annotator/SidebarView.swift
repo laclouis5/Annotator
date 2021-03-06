@@ -22,7 +22,7 @@ struct SidebarView: View {
 
             Divider()
 
-            FilterField("Filter", text: store.binding(for: \.filterText))
+            FilterField("Filter", text: $store.filterText)
                 .padding(4)
         }
         .frame(minWidth: 200)
