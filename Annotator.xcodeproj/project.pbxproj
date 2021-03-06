@@ -14,7 +14,6 @@
 		B98969CB25F002C200455136 /* AnnotatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98969CA25F002C200455136 /* AnnotatorTests.swift */; };
 		B98969D625F002C200455136 /* AnnotatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98969D525F002C200455136 /* AnnotatorUITests.swift */; };
 		B98969E725F0086C00455136 /* ReadSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98969E625F0086C00455136 /* ReadSize.swift */; };
-		B98969F125F024E700455136 /* TapLocationGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98969F025F024E700455136 /* TapLocationGesture.swift */; };
 		B9914BF825F0F28700E9C8CE /* AnnotationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9914BF725F0F28700E9C8CE /* AnnotationController.swift */; };
 		B9914C0025F0F35B00E9C8CE /* ImageStoreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9914BFF25F0F35B00E9C8CE /* ImageStoreController.swift */; };
 		B9914C0825F0FD5D00E9C8CE /* FilterField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9914C0725F0FD5D00E9C8CE /* FilterField.swift */; };
@@ -30,6 +29,7 @@
 		B9B8C56925F0D01A0035DF57 /* Numerics in Frameworks */ = {isa = PBXBuildFile; productRef = B9B8C56825F0D01A0035DF57 /* Numerics */; };
 		B9D54E1725F23624009B8648 /* TreeAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D54E1625F23624009B8648 /* TreeAnnotation.swift */; };
 		B9D54E1B25F23655009B8648 /* DisplayTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D54E1A25F23655009B8648 /* DisplayTree.swift */; };
+		B9D54E2325F37994009B8648 /* ClickGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D54E2225F37993009B8648 /* ClickGesture.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,7 +77,6 @@
 		B98969D525F002C200455136 /* AnnotatorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotatorUITests.swift; sourceTree = "<group>"; };
 		B98969D725F002C200455136 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B98969E625F0086C00455136 /* ReadSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadSize.swift; sourceTree = "<group>"; };
-		B98969F025F024E700455136 /* TapLocationGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapLocationGesture.swift; sourceTree = "<group>"; };
 		B9914BF725F0F28700E9C8CE /* AnnotationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationController.swift; sourceTree = "<group>"; };
 		B9914BFF25F0F35B00E9C8CE /* ImageStoreController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStoreController.swift; sourceTree = "<group>"; };
 		B9914C0725F0FD5D00E9C8CE /* FilterField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterField.swift; sourceTree = "<group>"; };
@@ -89,6 +88,7 @@
 		B9B8C55E25F0CFC20035DF57 /* Annotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
 		B9D54E1625F23624009B8648 /* TreeAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeAnnotation.swift; sourceTree = "<group>"; };
 		B9D54E1A25F23655009B8648 /* DisplayTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayTree.swift; sourceTree = "<group>"; };
+		B9D54E2225F37993009B8648 /* ClickGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickGesture.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,7 +207,7 @@
 		B99DF27725F1511800A7C43E /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				B98969F025F024E700455136 /* TapLocationGesture.swift */,
+				B9D54E2225F37993009B8648 /* ClickGesture.swift */,
 				B98969E625F0086C00455136 /* ReadSize.swift */,
 			);
 			path = Helpers;
@@ -381,6 +381,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B9914C1F25F1211F00E9C8CE /* ImageView.swift in Sources */,
+				B9D54E2325F37994009B8648 /* ClickGesture.swift in Sources */,
 				B9914C0025F0F35B00E9C8CE /* ImageStoreController.swift in Sources */,
 				B98969E725F0086C00455136 /* ReadSize.swift in Sources */,
 				B9B8C55F25F0CFC20035DF57 /* Annotation.swift in Sources */,
@@ -392,7 +393,6 @@
 				B9914C2A25F13C0100E9C8CE /* Sequence.swift in Sources */,
 				B98969BA25F002BD00455136 /* MainView.swift in Sources */,
 				B9D54E1725F23624009B8648 /* TreeAnnotation.swift in Sources */,
-				B98969F125F024E700455136 /* TapLocationGesture.swift in Sources */,
 				B9914C0825F0FD5D00E9C8CE /* FilterField.swift in Sources */,
 				B98969B825F002BD00455136 /* AnnotatorApp.swift in Sources */,
 			);

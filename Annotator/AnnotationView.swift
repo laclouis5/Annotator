@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Numerics
 
 struct AnnotationView: View {
     @EnvironmentObject private var imageStoreController: ImageStoreController
@@ -102,15 +103,14 @@ struct AnnotationView: View {
     }
     
     var tapGesture: some Gesture {
-        DragGesture(minimumDistance: 0)
-            .sequenced(before: TapGesture(count: 2))
-            .onEnded { (value) in
-                switch value {
-                case let .second(v, _):
-                    onDoubleClick(v.startLocation)
-                default:
-                    return
-                }
+        ClickGesture(count: 2)
+            .onEnded { value in
+                guard value.first != nil else { return }
+                guard let startLocation = value.second?.startLocation else { return }
+                guard let endLocation = value.second?.location else { return }
+                guard ((startLocation.x-1)...(startLocation.x+1)).contains(endLocation.x),
+                      ((startLocation.y-1)...(startLocation.y+1)).contains(endLocation.y) else { return }
+                onDoubleClick(startLocation)
             }
     }
     
