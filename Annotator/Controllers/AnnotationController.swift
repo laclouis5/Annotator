@@ -36,10 +36,10 @@ final class AnnotationController: ObservableObject {
     func addNode(_ node: KeypointNode, imageUrl: URL, imageSize: CGSize) {
         objectWillChange.send()
         if let selection = selection {
-            selection.children.append(node)
+            selection.append(node)
             self.selection = node
         } else if let root = tree.root {
-            root.children.append(node)
+            root.append(node)
             self.selection = node
         } else {
             tree.root = node
@@ -48,6 +48,24 @@ final class AnnotationController: ObservableObject {
         
         save(imageUrl, imageSize: imageSize)
     }
+    
+    /// Move a node position and trigger a `objectWillChange.send()`.
+    /// - Parameters:
+    ///   - node: The node to move.
+    ///   - x: The new horizontal position in the image coordinate system.
+    ///   - y: The new vertical position in the image coordinate system.
+    func moveNode(_ node: KeypointNode, x: Double, y: Double) {
+        objectWillChange.send()
+        node.value.x = x
+        node.value.y = y
+    }
+    
+//    func removeNode(_ node: KeypointNode) {
+//        objectWillChange.send()
+//        node.parent?.children += node.children
+//        node.children.forEach { $0.parent = node.parent }
+//        node.parent?.children.removeAll(where: { $0 === node })
+//    }
     
     /// Saves the current tree to the specified URL in JSON format.
     /// - Parameters:

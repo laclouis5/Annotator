@@ -13,7 +13,7 @@ struct AnnotationTreeView: View {
     let imageViewSize: CGSize
     let imageSize: CGSize
     
-    @AppStorage("keypointRadius") private var keypointRadius: Double = 5
+    @AppStorage("keypointRadius") private var keypointRadius: Double = 6
     
     var body: some View {
         ZStack(alignment: .topLeading) {
@@ -32,21 +32,22 @@ struct AnnotationTreeView: View {
     func keypointView(node: KeypointNode) -> some View {
         ZStack {
             Circle()
-                .fill(colorFor(node: node))
+                .fill(colorFor(node: node).opacity(2/3))
             
             if annotationController.selection == node {
                 Circle()
-                    .stroke(lineWidth: 2)
-                    .fill(Color.white)
+                    .stroke(lineWidth: 1.5)
+                    .fill(Color.white.opacity(2/3))
             }
         }
         .frame(width: CGFloat(keypointRadius) * 2, height: CGFloat(keypointRadius) * 2)
         .offset(
             x: CGFloat(node.value.x) / imageSize.width * imageViewSize.width - CGFloat(keypointRadius),
             y: CGFloat(node.value.y) / imageSize.height * imageViewSize.height - CGFloat(keypointRadius))
-        .onTapGesture {
-            annotationController.selection = node
-        }
+        .gesture(tapOrDragGesture(node: node))
+//        .contextMenu {
+//            Button("Remove", action: { annotationController.removeNode(node) })
+//        }
     }
     
     func connectionView(start: KeypointNode, stop: KeypointNode) -> some View {
@@ -76,6 +77,28 @@ struct AnnotationTreeView: View {
     
     func colorForConnection(from start: KeypointNode, to stop: KeypointNode) -> Color {
         colorFor(node: start)
+    }
+    
+    func tapOrDragGesture(node: KeypointNode) -> some Gesture {
+        DragGesture(minimumDistance: 2)
+            .onChanged { value in
+                annotationController.moveNode(node,
+                    x: Double(value.location.x / imageViewSize.width * imageSize.width) - keypointRadius,
+                    y: Double(value.location.y / imageViewSize.height * imageSize.height) - keypointRadius
+                )
+            }
+            .exclusively(before: TapGesture())
+            .onEnded { (value) in
+                switch value {
+                case .first(let value):
+                    annotationController.moveNode(node,
+                        x: Double(value.location.x / imageViewSize.width * imageSize.width) - keypointRadius,
+                        y: Double(value.location.y / imageViewSize.height * imageSize.height) - keypointRadius
+                    )
+                case .second:
+                    annotationController.selection = node
+                }
+            }
     }
 }
 

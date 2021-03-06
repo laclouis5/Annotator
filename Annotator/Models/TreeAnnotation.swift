@@ -11,14 +11,25 @@ import Combine
 
 final class Node<Value>: ObservableObject {
     @Published var value: Value
-    @Published var children: [Node<Value>]
+    @Published private(set) var children: [Node<Value>]
+    weak var parent: Node<Value>?
 //    @Published var id: UUID
-    
+ 
     init(_ value: Value, children: [Node<Value>] = []/*, id: UUID = UUID()*/) {
         self.value = value
         self.children = children
 //        self.id = id
     }
+    
+    func append(_ node: Node<Value>) {
+        children.append(node)
+        node.parent = self
+    }
+    
+//    func extend(_ nodes: [Node<Value>]) {
+//        children += nodes
+//        nodes.forEach { $0.parent = self }
+//    }
 }
 
 /// Tree must be declared as an Observable object to be able to update the views.
