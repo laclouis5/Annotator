@@ -47,7 +47,7 @@ final class AnnotationController: ObservableObject {
         }
     }
     
-    func remove(_ node: KeypointNode?) {
+    func removeNode(_ node: KeypointNode?) {
         guard let node = node else { return }
         objectWillChange.send()
         node.parent?.removeChild(node)
@@ -65,12 +65,10 @@ final class AnnotationController: ObservableObject {
         node.value.y = y
     }
     
-//    func removeNode(_ node: KeypointNode) {
-//        objectWillChange.send()
-//        node.parent?.children += node.children
-//        node.children.forEach { $0.parent = node.parent }
-//        node.parent?.children.removeAll(where: { $0 === node })
-//    }
+    func insertNode(_ newNode: KeypointNode, to node: KeypointNode, before child: KeypointNode) {
+        objectWillChange.send()
+        node.insert(newNode, before: child)
+    }
     
     /// Saves the current tree to the specified URL in JSON format.
     /// - Parameters:

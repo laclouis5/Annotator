@@ -10,11 +10,12 @@ import SwiftUI
 struct AnnotationTreeView: View {
     @EnvironmentObject private var annotationController: AnnotationController
     
+    @AppStorage("keypointRadius") private var radius: Double = 6
+    @AppStorage("keypointOpacity") private var opacity: Double = 2/3
+    
     let imageViewSize: CGSize
     let imageSize: CGSize
     let imageUrl: URL
-    
-    @AppStorage("keypointRadius") private var keypointRadius: Double = 6
     
     var body: some View {
         ZStack(alignment: .topLeading) {
@@ -33,21 +34,21 @@ struct AnnotationTreeView: View {
     func keypointView(node: KeypointNode) -> some View {
         ZStack {
             Circle()
-                .fill(colorFor(node: node).opacity(2/3))
+                .fill(colorFor(node: node).opacity(opacity))
             
             if annotationController.selection == node {
                 Circle()
                     .stroke(lineWidth: 1.5)
-                    .fill(Color.white.opacity(2/3))
+                    .fill(Color.white.opacity(opacity))
             }
         }
-        .frame(width: CGFloat(keypointRadius) * 2, height: CGFloat(keypointRadius) * 2)
+        .frame(width: CGFloat(radius) * 2, height: CGFloat(radius) * 2)
         .offset(
-            x: CGFloat(node.value.x) / imageSize.width * imageViewSize.width - CGFloat(keypointRadius),
-            y: CGFloat(node.value.y) / imageSize.height * imageViewSize.height - CGFloat(keypointRadius))
+            x: CGFloat(node.value.x) / imageSize.width * imageViewSize.width - CGFloat(radius),
+            y: CGFloat(node.value.y) / imageSize.height * imageViewSize.height - CGFloat(radius))
         .gesture(tapOrDragGesture(node: node))
         .contextMenu {
-            Button("Remove", action: { annotationController.remove(node) })
+            Button("Remove", action: { annotationController.removeNode(node) })
         }
     }
     
@@ -62,8 +63,13 @@ struct AnnotationTreeView: View {
                 y: CGFloat(stop.value.y) / imageSize.height * imageViewSize.height)
             )
         }
-        .stroke(lineWidth: 2)
-        .foregroundColor(colorForConnection(from: start, to: stop))
+        .stroke(lineWidth: 3)
+        .foregroundColor(colorForConnection(from: start, to: stop).opacity(opacity))
+        .onClickGesture(count: 1) { location in
+            let x = Double(location.x / imageViewSize.width * imageSize.width) - radius
+            let y = Double(location.y / imageViewSize.height * imageSize.height) - radius
+            annotationController.insertNode(KeypointNode(Keypoint(name: "", x: x, y: y)), to: start, before: stop)
+        }
     }
     
     func colorFor(node: KeypointNode) -> Color {
@@ -84,8 +90,8 @@ struct AnnotationTreeView: View {
         DragGesture(minimumDistance: 2)
             .onChanged { value in
                 annotationController.moveNode(node,
-                    x: Double(value.location.x / imageViewSize.width * imageSize.width) - keypointRadius,
-                    y: Double(value.location.y / imageViewSize.height * imageSize.height) - keypointRadius
+                    x: Double(value.location.x / imageViewSize.width * imageSize.width) - radius,
+                    y: Double(value.location.y / imageViewSize.height * imageSize.height) - radius
                 )
             }
             .exclusively(before: TapGesture())
@@ -93,8 +99,8 @@ struct AnnotationTreeView: View {
                 switch value {
                 case .first(let value):
                     annotationController.moveNode(node,
-                        x: Double(value.location.x / imageViewSize.width * imageSize.width) - keypointRadius,
-                        y: Double(value.location.y / imageViewSize.height * imageSize.height) - keypointRadius)
+                        x: Double(value.location.x / imageViewSize.width * imageSize.width) - radius,
+                        y: Double(value.location.y / imageViewSize.height * imageSize.height) - radius)
                     annotationController.save(imageUrl, imageSize: imageSize)
                 case .second:
                     annotationController.selection = node
