@@ -12,6 +12,7 @@ struct AnnotationTreeView: View {
     
     let imageViewSize: CGSize
     let imageSize: CGSize
+    let imageUrl: URL
     
     @AppStorage("keypointRadius") private var keypointRadius: Double = 6
     
@@ -45,9 +46,9 @@ struct AnnotationTreeView: View {
             x: CGFloat(node.value.x) / imageSize.width * imageViewSize.width - CGFloat(keypointRadius),
             y: CGFloat(node.value.y) / imageSize.height * imageViewSize.height - CGFloat(keypointRadius))
         .gesture(tapOrDragGesture(node: node))
-//        .contextMenu {
-//            Button("Remove", action: { annotationController.removeNode(node) })
-//        }
+        .contextMenu {
+            Button("Remove", action: { annotationController.remove(node) })
+        }
     }
     
     func connectionView(start: KeypointNode, stop: KeypointNode) -> some View {
@@ -93,8 +94,8 @@ struct AnnotationTreeView: View {
                 case .first(let value):
                     annotationController.moveNode(node,
                         x: Double(value.location.x / imageViewSize.width * imageSize.width) - keypointRadius,
-                        y: Double(value.location.y / imageViewSize.height * imageSize.height) - keypointRadius
-                    )
+                        y: Double(value.location.y / imageViewSize.height * imageSize.height) - keypointRadius)
+                    annotationController.save(imageUrl, imageSize: imageSize)
                 case .second:
                     annotationController.selection = node
                 }
@@ -117,7 +118,8 @@ struct TreeView_Previews: PreviewProvider {
     static var previews: some View {
         AnnotationTreeView(
             imageViewSize: CGSize(width: 800, height: 1000),
-            imageSize: CGSize(width: 2048, height: 2448)
+            imageSize: CGSize(width: 2048, height: 2448),
+            imageUrl: URL(string: "/tmp/image.jpg")!
         )
         .frame(width: 400, height: 600)
         .environmentObject(Self.controller)

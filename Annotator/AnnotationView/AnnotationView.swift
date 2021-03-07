@@ -21,7 +21,7 @@ struct AnnotationView: View {
                 ImageView(url: selection, imageSize: $imageSize)
                     .overlay(annotationView)
                     .readSize(onChange: { imageViewSize = $0 })
-                    .gesture(clickGesture)
+                    .onClickGesture(count: 2, perform: addNewNode)
                 
             } else {
                 Text("Choose an image or open a folder.")
@@ -40,27 +40,14 @@ struct AnnotationView: View {
     
     @ViewBuilder
     var annotationView: some View {
-        if let imageViewSize = imageViewSize, let imageSize = imageSize {
-            AnnotationTreeView(imageViewSize: imageViewSize, imageSize: imageSize)
+        if let imageViewSize = imageViewSize, let imageSize = imageSize, let imageUrl = imageStoreController.selection {
+            AnnotationTreeView(imageViewSize: imageViewSize, imageSize: imageSize, imageUrl: imageUrl)
         } else {
             Text("Cannot read image size.")
         }
     }
     
-    var clickGesture: some Gesture {
-        ClickGesture(count: 2)
-            .onEnded { value in
-                guard value.first != nil else { return }
-                guard let startLocation = value.second?.startLocation else { return }
-                guard let endLocation = value.second?.location else { return }
-                guard ((startLocation.x-1)...(startLocation.x+1)).contains(endLocation.x),
-                      ((startLocation.y-1)...(startLocation.y+1)).contains(endLocation.y) else { return }
-                
-                onDoubleClick(startLocation)
-            }
-    }
-    
-    func onDoubleClick(_ location: CGPoint) {
+    func addNewNode(at location: CGPoint) {
         guard let imageUrl = imageStoreController.selection,
               let imageSize = imageSize,
               let imageViewSize = imageViewSize else {
@@ -74,6 +61,7 @@ struct AnnotationView: View {
         )
          
         annotationController.addNode(node, imageUrl: imageUrl, imageSize: imageSize)
+        annotationController.save(imageUrl, imageSize: imageSize)
     }
 }
 

@@ -36,17 +36,22 @@ final class AnnotationController: ObservableObject {
     func addNode(_ node: KeypointNode, imageUrl: URL, imageSize: CGSize) {
         objectWillChange.send()
         if let selection = selection {
-            selection.append(node)
+            selection.addChild(node)
             self.selection = node
         } else if let root = tree.root {
-            root.append(node)
+            root.addChild(node)
             self.selection = node
         } else {
             tree.root = node
             selection = node
         }
-        
-        save(imageUrl, imageSize: imageSize)
+    }
+    
+    func remove(_ node: KeypointNode?) {
+        guard let node = node else { return }
+        objectWillChange.send()
+        node.parent?.removeChild(node)
+        node.parent?.addChildren(node.children)
     }
     
     /// Move a node position and trigger a `objectWillChange.send()`.
