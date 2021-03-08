@@ -30,6 +30,13 @@ extension Node {
         nodes.forEach { $0.parent = self }
     }
     
+    @discardableResult
+    func add(_ value: Value) -> Node {
+        let node = Node(value)
+        addChild(node)
+        return node
+    }
+    
     func removeChild(_ node: Node) {
         guard let index = children.firstIndex(where: { $0 === node }) else {
             return
@@ -46,10 +53,18 @@ extension Node {
         guard let index = children.firstIndex(where: { $0 === child }) else {
             return
         }
-        
+
         children.remove(at: index)
         node.addChild(child)
         addChild(node)
+    }
+    
+    var isLeaf: Bool {
+        children.isEmpty
+    }
+    
+    func insert(_ value: Value, before child: Node) {
+        insert(Node(value), before: child)
     }
 }
 

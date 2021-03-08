@@ -33,7 +33,7 @@ final class AnnotationController: ObservableObject {
     ///   - node: The KeypointNode to add.
     ///   - imageUrl: The URL of the image being annotated.
     ///   - imageSize: The size of the image being annotated.
-    func addNode(_ node: KeypointNode, imageUrl: URL, imageSize: CGSize) {
+    func add(node: KeypointNode, imageUrl: URL, imageSize: CGSize) {
         objectWillChange.send()
         if let selection = selection {
             selection.addChild(node)
@@ -47,12 +47,23 @@ final class AnnotationController: ObservableObject {
         }
     }
     
+    /// Add a node to the curent selected node or to the root of the tree.
+    /// This action triggers `objectWillChange.send()` and saves the annotation to disk.
+    /// - Parameters:
+    ///   - keypoint: The keypoint to add.
+    ///   - imageUrl: The URL of the image being annotated.
+    ///   - imageSize: The size of the image being annotated.
+    func add(keypoint: Keypoint<Double>, imageUrl: URL, imageSize: CGSize) {
+        let node = KeypointNode(keypoint)
+        add(node: node, imageUrl: imageUrl, imageSize: imageSize)
+    }
+    
     /// Remove a node from the annotation tree. The node children are assigned to
     /// the node parent if there is one. If not, the node cannot be removed as
     /// it is the root node and the removal is not performed. This methods does not
     /// checks if the node belongs to the tree before removal, make sure it is.
     /// - Parameter node: The node to remove.
-    func removeNode(_ node: KeypointNode) {
+    func remove(node: KeypointNode) {
         objectWillChange.send()
         
         if let parent = node.parent {
@@ -73,7 +84,7 @@ final class AnnotationController: ObservableObject {
     ///   - node: The node to move.
     ///   - x: The new horizontal position in the image coordinate system.
     ///   - y: The new vertical position in the image coordinate system.
-    func moveNode(_ node: KeypointNode, x: Double, y: Double) {
+    func move(node: KeypointNode, x: Double, y: Double) {
         objectWillChange.send()
         selection = node
         node.value.x = x
@@ -83,13 +94,20 @@ final class AnnotationController: ObservableObject {
     /// Insert a new node between two given nodes.
     /// - Parameters:
     ///   - newNode: The node to insert.
-    ///   - node: The node after which the new node will be inserted.
-    ///   - child: The node before which the new node will be inserted. This node must be
-    ///   a child of `node`.
-    func insertNode(_ newNode: KeypointNode, to node: KeypointNode, before child: KeypointNode) {
+    ///   - child: The node before which the new node will be inserted.
+    func insert(node: KeypointNode, before child: KeypointNode) {
         objectWillChange.send()
-        node.insert(newNode, before: child)
-        selection = newNode
+        child.parent?.insert(node, before: child)
+        selection = node
+    }
+    
+    /// Insert a new node between two given nodes.
+    /// - Parameters:
+    ///   - keypoint: The keypoint to insert.
+    ///   - child: The node before which the new node will be inserted.
+    func insert(keypoint: Keypoint<Double>, before child: KeypointNode) {
+        let node = Node(keypoint)
+        insert(node: node, before: child)
     }
     
     /// Saves the current tree to the specified URL in JSON format.

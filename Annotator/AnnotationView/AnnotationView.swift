@@ -54,13 +54,13 @@ struct AnnotationView: View {
             return
         }
         
-        let node = Node(Keypoint(
+        let keypoint = Keypoint(
             name: "",
             x: Double(location.x / imageViewSize.width * imageSize.width),
-            y: Double(location.y / imageViewSize.height * imageSize.height))
+            y: Double(location.y / imageViewSize.height * imageSize.height)
         )
          
-        annotationController.addNode(node, imageUrl: imageUrl, imageSize: imageSize)
+        annotationController.add(keypoint: keypoint, imageUrl: imageUrl, imageSize: imageSize)
         annotationController.save(imageUrl, imageSize: imageSize)
     }
 }

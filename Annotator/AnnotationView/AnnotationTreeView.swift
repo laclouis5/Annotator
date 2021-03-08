@@ -49,7 +49,7 @@ struct AnnotationTreeView: View {
         .gesture(tapOrDragGesture(node: node))
         .contextMenu {
             Button("Remove") {
-                annotationController.removeNode(node)
+                annotationController.remove(node: node)
                 annotationController.save(imageUrl, imageSize: imageSize)
             }
         }
@@ -71,14 +71,14 @@ struct AnnotationTreeView: View {
         .onClickGesture(count: 1) { location in
             let x = Double(location.x / imageViewSize.width * imageSize.width) - radius
             let y = Double(location.y / imageViewSize.height * imageSize.height) - radius
-            annotationController.insertNode(KeypointNode(Keypoint(name: "", x: x, y: y)), to: start, before: stop)
+            annotationController.insert(keypoint: Keypoint(name: "", x: x, y: y), before: stop)
         }
     }
     
     func colorFor(node: KeypointNode) -> Color {
         if node === annotationController.tree.root {
             return .red
-        } else if node.children.isEmpty {
+        } else if node.isLeaf {
             return .green
         } else {
             return .orange
@@ -92,7 +92,7 @@ struct AnnotationTreeView: View {
     func tapOrDragGesture(node: KeypointNode) -> some Gesture {
         DragGesture(minimumDistance: 2)
             .onChanged { value in
-                annotationController.moveNode(node,
+                annotationController.move(node: node,
                     x: Double(value.location.x / imageViewSize.width * imageSize.width) - radius,
                     y: Double(value.location.y / imageViewSize.height * imageSize.height) - radius
                 )
@@ -101,7 +101,7 @@ struct AnnotationTreeView: View {
             .onEnded { (value) in
                 switch value {
                 case .first(let value):
-                    annotationController.moveNode(node,
+                    annotationController.move(node: node,
                         x: Double(value.location.x / imageViewSize.width * imageSize.width) - radius,
                         y: Double(value.location.y / imageViewSize.height * imageSize.height) - radius)
                     annotationController.save(imageUrl, imageSize: imageSize)
