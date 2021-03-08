@@ -11,7 +11,7 @@ import Foundation
 /// A notification should be send via `objectWillChange.send()` each time
 /// the tree structure is modified (add a node, changed a value, ...).
 final class Tree<Value>: ObservableObject {
-    @Published var root: Node<Value>?
+    var root: Node<Value>?
     
     init(root: Node<Value>? = nil) {
         self.root = root

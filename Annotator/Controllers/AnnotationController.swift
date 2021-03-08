@@ -10,7 +10,7 @@ import Combine
 
 final class AnnotationController: ObservableObject {
     /// The current tree annotation.
-    @Published var tree: KeypointTree
+    @Published private(set) var tree: KeypointTree
     
     /// The selected node.
     @Published var selection: KeypointNode?
@@ -47,6 +47,11 @@ final class AnnotationController: ObservableObject {
         }
     }
     
+    /// Remove a node from the annotation tree. The node children are assigned to
+    /// the node parent if there is one. If not, the node cannot be removed as
+    /// it is the root node and the removal is not performed. This methods does not
+    /// checks if the node belongs to the tree before removal, make sure it is.
+    /// - Parameter node: The node to remove.
     func removeNode(_ node: KeypointNode?) {
         guard let node = node else { return }
         objectWillChange.send()
@@ -65,6 +70,12 @@ final class AnnotationController: ObservableObject {
         node.value.y = y
     }
     
+    /// Insert a new node between two given nodes.
+    /// - Parameters:
+    ///   - newNode: The node to insert.
+    ///   - node: The node after which the new node will be inserted.
+    ///   - child: The node before which the new node will be inserted. This node must be
+    ///   a child of `node`.
     func insertNode(_ newNode: KeypointNode, to node: KeypointNode, before child: KeypointNode) {
         objectWillChange.send()
         node.insert(newNode, before: child)

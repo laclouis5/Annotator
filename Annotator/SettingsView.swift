@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @AppStorage("keypointRadius") private var radius: Double = 6
-    @AppStorage("keypointOpacity") private var opacity: Double = 2/3
+    @AppStorage("keypointRadius") private var radius: Double = 5
+    @AppStorage("keypointOpacity") private var opacity: Double = 1/2
     @State private var leafColor: Color = .green
     
     @Environment(\.presentationMode) var presentationMode

@@ -8,8 +8,8 @@
 import Foundation
 
 final class Node<Value>: ObservableObject {
-    @Published var value: Value
-    @Published private(set) var children: [Node<Value>]
+    var value: Value
+    private(set) var children: [Node<Value>]
     weak var parent: Node<Value>?
  
     init(_ value: Value, children: [Node] = [], parent: Node? = nil) {

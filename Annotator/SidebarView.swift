@@ -19,7 +19,7 @@ struct SidebarView: View {
                     }
                 }
             }
-
+            
             Divider()
 
             FilterField("Filter", text: $store.filterText)

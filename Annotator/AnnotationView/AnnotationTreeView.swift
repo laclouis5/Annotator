@@ -10,8 +10,8 @@ import SwiftUI
 struct AnnotationTreeView: View {
     @EnvironmentObject private var annotationController: AnnotationController
     
-    @AppStorage("keypointRadius") private var radius: Double = 6
-    @AppStorage("keypointOpacity") private var opacity: Double = 2/3
+    @AppStorage("keypointRadius") private var radius: Double = 5
+    @AppStorage("keypointOpacity") private var opacity: Double = 1/2
     
     let imageViewSize: CGSize
     let imageSize: CGSize
