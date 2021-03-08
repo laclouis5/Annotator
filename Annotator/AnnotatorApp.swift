@@ -19,8 +19,8 @@ struct AnnotatorApp: App {
                 .environmentObject(annotationController)
         }
         .commands {
-            SidebarCommands()
             ToolbarCommands()
+            SidebarCommands()
         }
     }
 }

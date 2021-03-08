@@ -16,23 +16,23 @@ struct MainView: View {
         NavigationView {
             SidebarView()
             AnnotationView()
+                .toolbar(content: toolbarItems)
         }
         .frame(minWidth: 1000, minHeight: 600)
-        .toolbar(content: toolbarItems)
         .sheet(isPresented: $isPresented, content: SettingsView.init)
     }
     
     func toolbarItems() -> some ToolbarContent {
         Group {
-            ToolbarItem(placement: .navigation) {
-                Button(action: openPanel) {
-                    Image(systemSymbol: .folder)
-                }
-            }
-            
             ToolbarItem(placement: .automatic) {
                 Button(action: { isPresented.toggle() }) {
                     Image(systemSymbol: .gear)
+                }
+            }
+
+            ToolbarItem(placement: .navigation) {
+                Button(action: openPanel) {
+                    Image(systemSymbol: .folder)
                 }
             }
         }

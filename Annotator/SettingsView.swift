@@ -51,8 +51,8 @@ struct SettingsView: View {
             
             HStack {
                 Button("Restore Defaults") {
-                    radius = 6
-                    opacity = 2/3
+                    radius = 5
+                    opacity = 1/2
                 }
                 
                 Spacer()
