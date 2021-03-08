@@ -12,6 +12,6 @@ Annotate arborescent structures in images.
 - Click on a connection line to add a node between two nodes.
 - Drag a node to move it.
 
-The annotation is saved in JSON format next to the selected image. Example provided in `example.json`.
+The annotation is saved in JSON format next to the selected image. Example provided in [example.json](example.json).
 
 Display settings can be tuned in the preferences pane (keypoint opacity and size).
