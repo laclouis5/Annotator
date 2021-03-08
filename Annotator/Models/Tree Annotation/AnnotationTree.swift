@@ -10,7 +10,7 @@ import Foundation
 typealias KeypointNode = Node<Keypoint<Double>>
 typealias KeypointTree = Tree<Keypoint<Double>>
 
-struct AnnotationTree: Equatable, Hashable {
+struct AnnotationTree {
     var imageUrl: URL
     var tree: KeypointTree
     var imageSize: Size<Double>?
@@ -29,6 +29,8 @@ extension AnnotationTree {
         }
     }
 }
+
+//extension AnnotationTree: Equatable, Hashable { }
 
 extension AnnotationTree: Codable {
     enum Keys: String, CodingKey {

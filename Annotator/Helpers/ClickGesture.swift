@@ -20,20 +20,24 @@ struct ClickGesture: Gesture {
     }
     
     var body: SimultaneousGesture<TapGesture, DragGesture> {
-        TapGesture(count: count)
-            .simultaneously(with: DragGesture(minimumDistance: 0, coordinateSpace: coordinateSpace))
+        SimultaneousGesture(
+            TapGesture(count: count),
+            DragGesture(minimumDistance: 0, coordinateSpace: coordinateSpace)
+        )
     }
     
-    func onEnded(perform action: @escaping (CGPoint) -> Void) -> some Gesture {
+    func onEnded(perform action: @escaping (CGPoint) -> Void) -> _EndedGesture<ClickGesture> {
         ClickGesture(count: count, coordinateSpace: coordinateSpace)
             .onEnded { (value: Value) -> Void in
                 guard value.first != nil else { return }
-                guard let startLocation = value.second?.startLocation else { return }
+                guard let location = value.second?.startLocation else { return }
                 guard let endLocation = value.second?.location else { return }
-                guard ((startLocation.x-1)...(startLocation.x+1)).contains(endLocation.x),
-                      ((startLocation.y-1)...(startLocation.y+1)).contains(endLocation.y) else { return }
+                guard ((location.x-1)...(location.x+1)).contains(endLocation.x),
+                      ((location.y-1)...(location.y+1)).contains(endLocation.y) else {
+                    return
+                }
                 
-                action(startLocation)
+                action(location)
             }
     }
 }

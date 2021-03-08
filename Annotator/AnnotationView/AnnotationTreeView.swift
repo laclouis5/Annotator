@@ -36,7 +36,7 @@ struct AnnotationTreeView: View {
             Circle()
                 .fill(colorFor(node: node).opacity(opacity))
             
-            if annotationController.selection == node {
+            if annotationController.selection === node {
                 Circle()
                     .stroke(lineWidth: 1.5)
                     .fill(Color.white.opacity(opacity))
@@ -48,7 +48,10 @@ struct AnnotationTreeView: View {
             y: CGFloat(node.value.y) / imageSize.height * imageViewSize.height - CGFloat(radius))
         .gesture(tapOrDragGesture(node: node))
         .contextMenu {
-            Button("Remove", action: { annotationController.removeNode(node) })
+            Button("Remove") {
+                annotationController.removeNode(node)
+                annotationController.save(imageUrl, imageSize: imageSize)
+            }
         }
     }
     

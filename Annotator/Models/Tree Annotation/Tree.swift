@@ -51,17 +51,17 @@ extension Tree {
     }
 }
 
-extension Tree: Equatable where Value: Equatable {
-    static func == (lhs: Tree, rhs: Tree) -> Bool {
-        lhs.root == rhs.root
-    }
-}
-
-extension Tree: Hashable where Value: Hashable {
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(root)
-    }
-}
+//extension Tree: Equatable where Value: Equatable {
+//    static func == (lhs: Tree, rhs: Tree) -> Bool {
+//        lhs.root == rhs.root
+//    }
+//}
+//
+//extension Tree: Hashable where Value: Hashable {
+//    func hash(into hasher: inout Hasher) {
+//        hasher.combine(root)
+//    }
+//}
 
 extension Tree: Codable where Value: Codable {
     convenience init(from decoder: Decoder) throws {

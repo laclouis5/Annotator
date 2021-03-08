@@ -52,11 +52,20 @@ final class AnnotationController: ObservableObject {
     /// it is the root node and the removal is not performed. This methods does not
     /// checks if the node belongs to the tree before removal, make sure it is.
     /// - Parameter node: The node to remove.
-    func removeNode(_ node: KeypointNode?) {
-        guard let node = node else { return }
+    func removeNode(_ node: KeypointNode) {
         objectWillChange.send()
-        node.parent?.removeChild(node)
-        node.parent?.addChildren(node.children)
+        
+        if let parent = node.parent {
+            parent.removeChild(node)
+            parent.addChildren(node.children)
+            selection = parent
+        } else if node.children.isEmpty {
+            selection = nil
+            tree.root = nil
+        } else if node.children.count == 1 {
+            tree.root = node.children.first!
+            selection = tree.root
+        }
     }
     
     /// Move a node position and trigger a `objectWillChange.send()`.
@@ -66,6 +75,7 @@ final class AnnotationController: ObservableObject {
     ///   - y: The new vertical position in the image coordinate system.
     func moveNode(_ node: KeypointNode, x: Double, y: Double) {
         objectWillChange.send()
+        selection = node
         node.value.x = x
         node.value.y = y
     }
@@ -79,6 +89,7 @@ final class AnnotationController: ObservableObject {
     func insertNode(_ newNode: KeypointNode, to node: KeypointNode, before child: KeypointNode) {
         objectWillChange.send()
         node.insert(newNode, before: child)
+        selection = newNode
     }
     
     /// Saves the current tree to the specified URL in JSON format.
@@ -86,8 +97,6 @@ final class AnnotationController: ObservableObject {
     ///   - imageUrl: The URL of the image being annotated.
     ///   - imageSize: The size of the image being annotated.
     func save(_ imageUrl: URL, imageSize: CGSize) {
-        guard !tree.isEmpty else { return }
-        
         do {
             let size = Size(cgSize: imageSize)
             var annotation = AnnotationTree(imageUrl: imageUrl, tree: tree, imageSize: size)
