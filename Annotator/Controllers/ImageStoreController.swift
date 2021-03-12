@@ -28,7 +28,7 @@ final class ImageStoreController: ObservableObject {
     /// The selected image.
     @Published var selection: URL?
     
-    init(folder: URL?) {
+    init(folder: URL? = nil) {
         self.folder = folder
         self.allImages = []
         self.images = []
@@ -52,7 +52,7 @@ final class ImageStoreController: ObservableObject {
         
         // Publisher that updates the filtered image list when either the list or the filter text change.
         Publishers.CombineLatest(
-            $allImages.removeDuplicates(),
+            $allImages,
             $filterText
                 .throttle(for: .milliseconds(150), scheduler: DispatchQueue.main, latest: true)
                 .map { text in text.trimmingCharacters(in: .whitespacesAndNewlines) }
@@ -71,7 +71,6 @@ final class ImageStoreController: ObservableObject {
         
         // Publisher that updates the selection when the list of images changes.
         $allImages
-            .removeDuplicates()
             .map(\.first)
             .receive(on: DispatchQueue.main)
             .assign(to: &$selection)

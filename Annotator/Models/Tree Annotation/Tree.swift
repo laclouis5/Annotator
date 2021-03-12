@@ -10,7 +10,7 @@ import Foundation
 /// Tree must be declared as an Observable object to be able to update the views.
 /// A notification should be send via `objectWillChange.send()` each time
 /// the tree structure is modified (add a node, changed a value, ...).
-final class Tree<Value>: ObservableObject {
+final class Tree<Value> {
     var root: Node<Value>?
     
     init(root: Node<Value>? = nil) {

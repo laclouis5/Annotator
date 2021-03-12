@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class Node<Value>: ObservableObject {
+final class Node<Value> {
     var value: Value
     private(set) var children: [Node<Value>]
     weak var parent: Node<Value>?
@@ -61,6 +61,10 @@ extension Node {
     
     var isLeaf: Bool {
         children.isEmpty
+    }
+    
+    var isRoot: Bool {
+        self.parent == nil
     }
     
     func insert(_ value: Value, before child: Node) {

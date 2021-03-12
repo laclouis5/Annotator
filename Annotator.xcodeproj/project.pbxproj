@@ -19,12 +19,12 @@
 		B9914BF825F0F28700E9C8CE /* AnnotationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9914BF725F0F28700E9C8CE /* AnnotationController.swift */; };
 		B9914C0025F0F35B00E9C8CE /* ImageStoreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9914BFF25F0F35B00E9C8CE /* ImageStoreController.swift */; };
 		B9914C0825F0FD5D00E9C8CE /* FilterField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9914C0725F0FD5D00E9C8CE /* FilterField.swift */; };
-		B9914C1125F1154200E9C8CE /* InspectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9914C1025F1154200E9C8CE /* InspectorView.swift */; };
 		B9914C1F25F1211F00E9C8CE /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9914C1E25F1211F00E9C8CE /* ImageView.swift */; };
 		B9914C2A25F13C0100E9C8CE /* Sequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9914C2925F13C0000E9C8CE /* Sequence.swift */; };
 		B9914C4025F148E000E9C8CE /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = B9914C3F25F148E000E9C8CE /* SFSafeSymbols */; };
 		B99DF26E25F14F1700A7C43E /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99DF26D25F14F1700A7C43E /* SidebarView.swift */; };
 		B99DF27425F150EF00A7C43E /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99DF27325F150EF00A7C43E /* AnnotationView.swift */; };
+		B9ADC24325F7F52400B1199F /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ADC24225F7F52400B1199F /* Cache.swift */; };
 		B9B8C55F25F0CFC20035DF57 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B8C55E25F0CFC20035DF57 /* Annotation.swift */; };
 		B9B9A4D725F52D3400205FEC /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B9A4D625F52D3400205FEC /* Node.swift */; };
 		B9B9A4DB25F52D3D00205FEC /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B9A4DA25F52D3D00205FEC /* Tree.swift */; };
@@ -34,6 +34,7 @@
 		B9D54E2325F37994009B8648 /* ClickGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D54E2225F37993009B8648 /* ClickGesture.swift */; };
 		B9F1CBE325F3951C00395E29 /* AnnotationTreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F1CBE225F3951C00395E29 /* AnnotationTreeView.swift */; };
 		B9F1CBF725F3EDDF00395E29 /* RealModule in Frameworks */ = {isa = PBXBuildFile; productRef = B9F1CBF625F3EDDF00395E29 /* RealModule */; };
+		B9F43F7225FA64C00091F49E /* ScrollViewOffset.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F43F7125FA64C00091F49E /* ScrollViewOffset.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,11 +87,11 @@
 		B9914BF725F0F28700E9C8CE /* AnnotationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationController.swift; sourceTree = "<group>"; };
 		B9914BFF25F0F35B00E9C8CE /* ImageStoreController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStoreController.swift; sourceTree = "<group>"; };
 		B9914C0725F0FD5D00E9C8CE /* FilterField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterField.swift; sourceTree = "<group>"; };
-		B9914C1025F1154200E9C8CE /* InspectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorView.swift; sourceTree = "<group>"; };
 		B9914C1E25F1211F00E9C8CE /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageView.swift; path = Annotator/AnnotationView/ImageView.swift; sourceTree = SOURCE_ROOT; };
 		B9914C2925F13C0000E9C8CE /* Sequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sequence.swift; sourceTree = "<group>"; };
 		B99DF26D25F14F1700A7C43E /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
 		B99DF27325F150EF00A7C43E /* AnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
+		B9ADC24225F7F52400B1199F /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		B9B8C55E25F0CFC20035DF57 /* Annotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
 		B9B9A4D625F52D3400205FEC /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		B9B9A4DA25F52D3D00205FEC /* Tree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tree.swift; sourceTree = "<group>"; };
@@ -99,6 +100,7 @@
 		B9D54E1A25F23655009B8648 /* DisplayTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayTree.swift; sourceTree = "<group>"; };
 		B9D54E2225F37993009B8648 /* ClickGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickGesture.swift; sourceTree = "<group>"; };
 		B9F1CBE225F3951C00395E29 /* AnnotationTreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationTreeView.swift; sourceTree = "<group>"; };
+		B9F43F7125FA64C00091F49E /* ScrollViewOffset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewOffset.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,8 +217,10 @@
 		B99DF27725F1511800A7C43E /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				B9ADC24225F7F52400B1199F /* Cache.swift */,
 				B9D54E2225F37993009B8648 /* ClickGesture.swift */,
 				B98969E625F0086C00455136 /* ReadSize.swift */,
+				B9F43F7125FA64C00091F49E /* ScrollViewOffset.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -265,7 +269,6 @@
 				B99DF27325F150EF00A7C43E /* AnnotationView.swift */,
 				B9F1CBE225F3951C00395E29 /* AnnotationTreeView.swift */,
 				B9914C1E25F1211F00E9C8CE /* ImageView.swift */,
-				B9914C1025F1154200E9C8CE /* InspectorView.swift */,
 			);
 			path = AnnotationView;
 			sourceTree = "<group>";
@@ -408,6 +411,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9ADC24325F7F52400B1199F /* Cache.swift in Sources */,
 				B9272A5825F57A2D00F45E04 /* SettingsView.swift in Sources */,
 				B9914C1F25F1211F00E9C8CE /* ImageView.swift in Sources */,
 				B9D54E2325F37994009B8648 /* ClickGesture.swift in Sources */,
@@ -418,7 +422,6 @@
 				B9B8C55F25F0CFC20035DF57 /* Annotation.swift in Sources */,
 				B9CDA44325F3F2BA00613662 /* DebugPrint.swift in Sources */,
 				B9D54E1B25F23655009B8648 /* DisplayTree.swift in Sources */,
-				B9914C1125F1154200E9C8CE /* InspectorView.swift in Sources */,
 				B9B9A4DF25F52D4D00205FEC /* AnnotationTree.swift in Sources */,
 				B9272A4E25F531B000F45E04 /* Optional.swift in Sources */,
 				B9B9A4DB25F52D3D00205FEC /* Tree.swift in Sources */,
@@ -429,6 +432,7 @@
 				B98969BA25F002BD00455136 /* MainView.swift in Sources */,
 				B9914C0825F0FD5D00E9C8CE /* FilterField.swift in Sources */,
 				B98969B825F002BD00455136 /* AnnotatorApp.swift in Sources */,
+				B9F43F7225FA64C00091F49E /* ScrollViewOffset.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

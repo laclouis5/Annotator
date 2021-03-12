@@ -10,7 +10,10 @@ import Combine
 
 final class AnnotationController: ObservableObject {
     /// The current tree annotation.
-    @Published private(set) var tree: KeypointTree
+    private var tree: KeypointTree
+    
+    /// The tree nodes in an array for use in SwiftUI List views.
+    @Published private(set) var nodes: [KeypointNode]
     
     /// The selected node.
     @Published var selection: KeypointNode?
@@ -25,16 +28,16 @@ final class AnnotationController: ObservableObject {
     
     init(tree: KeypointTree = .init()) {
         self.tree = tree
+        self.nodes = tree.reduce { $0 }
     }
     
     /// Add a node to the curent selected node or to the root of the tree.
-    /// This action triggers `objectWillChange.send()` and saves the annotation to disk.
+    /// This action saves the annotation to disk.
     /// - Parameters:
     ///   - node: The KeypointNode to add.
     ///   - imageUrl: The URL of the image being annotated.
     ///   - imageSize: The size of the image being annotated.
     func add(node: KeypointNode, imageUrl: URL, imageSize: CGSize) {
-        objectWillChange.send()
         if let selection = selection {
             selection.addChild(node)
             self.selection = node
@@ -45,10 +48,12 @@ final class AnnotationController: ObservableObject {
             tree.root = node
             selection = node
         }
+        
+        nodes.append(node)
     }
     
     /// Add a node to the curent selected node or to the root of the tree.
-    /// This action triggers `objectWillChange.send()` and saves the annotation to disk.
+    /// This action saves the annotation to disk.
     /// - Parameters:
     ///   - keypoint: The keypoint to add.
     ///   - imageUrl: The URL of the image being annotated.
@@ -64,8 +69,6 @@ final class AnnotationController: ObservableObject {
     /// checks if the node belongs to the tree before removal, make sure it is.
     /// - Parameter node: The node to remove.
     func remove(node: KeypointNode) {
-        objectWillChange.send()
-        
         if let parent = node.parent {
             parent.removeChild(node)
             parent.addChildren(node.children)
@@ -77,15 +80,16 @@ final class AnnotationController: ObservableObject {
             tree.root = node.children.first!
             selection = tree.root
         }
+        
+        nodes.remove(at: nodes.firstIndex { node === $0 }!)
     }
     
-    /// Move a node position and trigger a `objectWillChange.send()`.
+    /// Move a node position.
     /// - Parameters:
     ///   - node: The node to move.
     ///   - x: The new horizontal position in the image coordinate system.
     ///   - y: The new vertical position in the image coordinate system.
     func move(node: KeypointNode, x: Double, y: Double) {
-        objectWillChange.send()
         selection = node
         node.value.x = x
         node.value.y = y
@@ -96,9 +100,10 @@ final class AnnotationController: ObservableObject {
     ///   - newNode: The node to insert.
     ///   - child: The node before which the new node will be inserted.
     func insert(node: KeypointNode, before child: KeypointNode) {
-        objectWillChange.send()
         child.parent?.insert(node, before: child)
         selection = node
+        
+        nodes.append(node)
     }
     
     /// Insert a new node between two given nodes.
@@ -127,21 +132,21 @@ final class AnnotationController: ObservableObject {
         }
     }
     
-    /// Load annotation from disk. This triggers a `objectWillChange.send()`.
+    /// Load annotation from disk.
     /// - Parameter url: The annotation URL on disk.
     func loadAnnotation(url: URL) {
         do {
             let data = try Data(contentsOf: url)
             let annotation = try decoder.decode(AnnotationTree.self, from: data)
-            objectWillChange.send()
             tree = annotation.tree
+            nodes = tree.reduce { $0 }
             selection = tree.root
         } catch {
             reset()
         }
     }
     
-    /// Load annotation from disk. This triggers a `objectWillChange.send()`.
+    /// Load annotation from disk.
     /// - Parameter imageUrl: The image URL on disk. The annotation should have the
     /// save name with a `.json` extension.
     func loadAnnotation(forImageUrl imageUrl: URL) {
@@ -151,8 +156,8 @@ final class AnnotationController: ObservableObject {
     
     /// Reset both the annotation tree and the selected node to `nil`.
     func reset() {
-        objectWillChange.send()
         tree = .init()
+        nodes = []
         selection = nil
     }
 }

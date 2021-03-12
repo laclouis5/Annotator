@@ -20,7 +20,7 @@ struct AnnotationTreeView: View {
     var body: some View {
         ZStack(alignment: .topLeading) {
             GeometryReader { _ in
-                ForEach(annotationController.tree.reduce({ $0 })) { node in
+                ForEach(annotationController.nodes) { node in
                     ForEach(node.children) { child in
                         connectionView(start: node, stop: child)
                     }
@@ -76,7 +76,7 @@ struct AnnotationTreeView: View {
     }
     
     func colorFor(node: KeypointNode) -> Color {
-        if node === annotationController.tree.root {
+        if node.isRoot {
             return .red
         } else if node.isLeaf {
             return .green
