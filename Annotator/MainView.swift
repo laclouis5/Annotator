@@ -9,7 +9,7 @@ import SwiftUI
 import SFSafeSymbols
 
 struct MainView: View {
-    @EnvironmentObject private var store: ImageStoreController
+    @StateObject private var imageStore = ImageStoreController()
     @State private var isPresented: Bool = false
     
     var body: some View {
@@ -20,6 +20,7 @@ struct MainView: View {
         }
         .frame(minWidth: 1000, minHeight: 600)
         .sheet(isPresented: $isPresented, content: SettingsView.init)
+        .environmentObject(imageStore)
     }
     
     func toolbarItems() -> some ToolbarContent {
@@ -46,7 +47,7 @@ struct MainView: View {
         panel.canHide = true
         
         if panel.runModal() == .OK {
-            store.folder = panel.url
+            imageStore.folder = panel.url
         }
     }
 }

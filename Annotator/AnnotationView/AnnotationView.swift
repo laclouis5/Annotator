@@ -10,7 +10,8 @@ import RealModule
 
 struct AnnotationView: View {
     @EnvironmentObject private var imageStoreController: ImageStoreController
-    @EnvironmentObject private var annotationController: AnnotationController
+    
+    @StateObject private var annotationController = AnnotationController()
     
     @State private var imageViewSize: CGSize?
     @State private var imageSize: CGSize?
@@ -36,6 +37,7 @@ struct AnnotationView: View {
                 annotationController.reset()
             }
         }
+        .environmentObject(annotationController)
     }
     
     @ViewBuilder
