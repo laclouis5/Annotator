@@ -29,6 +29,7 @@
 		B9B9A4D725F52D3400205FEC /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B9A4D625F52D3400205FEC /* Node.swift */; };
 		B9B9A4DB25F52D3D00205FEC /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B9A4DA25F52D3D00205FEC /* Tree.swift */; };
 		B9B9A4DF25F52D4D00205FEC /* AnnotationTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B9A4DE25F52D4D00205FEC /* AnnotationTree.swift */; };
+		B9CA854325FB8E5B00583861 /* ImageScalePreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CA854225FB8E5B00583861 /* ImageScalePreference.swift */; };
 		B9CDA44325F3F2BA00613662 /* DebugPrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CDA44225F3F2BA00613662 /* DebugPrint.swift */; };
 		B9D54E1B25F23655009B8648 /* DisplayTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D54E1A25F23655009B8648 /* DisplayTree.swift */; };
 		B9D54E2325F37994009B8648 /* ClickGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D54E2225F37993009B8648 /* ClickGesture.swift */; };
@@ -96,6 +97,7 @@
 		B9B9A4D625F52D3400205FEC /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		B9B9A4DA25F52D3D00205FEC /* Tree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tree.swift; sourceTree = "<group>"; };
 		B9B9A4DE25F52D4D00205FEC /* AnnotationTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationTree.swift; sourceTree = "<group>"; };
+		B9CA854225FB8E5B00583861 /* ImageScalePreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageScalePreference.swift; sourceTree = "<group>"; };
 		B9CDA44225F3F2BA00613662 /* DebugPrint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugPrint.swift; sourceTree = "<group>"; };
 		B9D54E1A25F23655009B8648 /* DisplayTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayTree.swift; sourceTree = "<group>"; };
 		B9D54E2225F37993009B8648 /* ClickGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickGesture.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 			children = (
 				B9914BFF25F0F35B00E9C8CE /* ImageStoreController.swift */,
 				B9914BF725F0F28700E9C8CE /* AnnotationController.swift */,
+				B9CA854225FB8E5B00583861 /* ImageScalePreference.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -421,6 +424,7 @@
 				B9F1CBE325F3951C00395E29 /* AnnotationTreeView.swift in Sources */,
 				B9B8C55F25F0CFC20035DF57 /* Annotation.swift in Sources */,
 				B9CDA44325F3F2BA00613662 /* DebugPrint.swift in Sources */,
+				B9CA854325FB8E5B00583861 /* ImageScalePreference.swift in Sources */,
 				B9D54E1B25F23655009B8648 /* DisplayTree.swift in Sources */,
 				B9B9A4DF25F52D4D00205FEC /* AnnotationTree.swift in Sources */,
 				B9272A4E25F531B000F45E04 /* Optional.swift in Sources */,

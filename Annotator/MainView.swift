@@ -10,6 +10,7 @@ import SFSafeSymbols
 
 struct MainView: View {
     @StateObject private var imageStore = ImageStoreController()
+    @StateObject private var imagePreference = ImageScalePreference()
     @State private var isPresented: Bool = false
     
     var body: some View {
@@ -21,10 +22,24 @@ struct MainView: View {
         .frame(minWidth: 1000, minHeight: 600)
         .sheet(isPresented: $isPresented, content: SettingsView.init)
         .environmentObject(imageStore)
+        .environmentObject(imagePreference)
     }
     
     func toolbarItems() -> some ToolbarContent {
         Group {
+//            min(max(imagePreference.imageScale * scale, 1.0)
+            ToolbarItemGroup(placement: .automatic) {
+                Button(action: { imagePreference.imageScale = min(max(imagePreference.imageScale / 2, 1.0), 5) }) {
+                    Image(systemSymbol: .minusMagnifyingglass)
+                }
+                Button(action: { imagePreference.imageScale = 1 }) {
+                    Image(systemSymbol: ._1Magnifyingglass)
+                }
+                Button(action: { imagePreference.imageScale = min(max(imagePreference.imageScale * 2, 1.0), 5) }) {
+                    Image(systemSymbol: .plusMagnifyingglass)
+                }
+            }
+            
             ToolbarItem(placement: .automatic) {
                 Button(action: { isPresented.toggle() }) {
                     Image(systemSymbol: .gear)
