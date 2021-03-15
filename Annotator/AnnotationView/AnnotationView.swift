@@ -10,6 +10,7 @@ import RealModule
 
 struct AnnotationView: View {
     @EnvironmentObject private var imageStoreController: ImageStoreController
+    @EnvironmentObject private var labelsController: LabelsController
     @EnvironmentObject private var imagePreference: ImageScalePreference
     @StateObject private var annotationController = AnnotationController()
     @State private var imageViewSize: CGSize?
@@ -24,8 +25,9 @@ struct AnnotationView: View {
                             .overlay(annotationView)
                             .readSize(onChange: { imageViewSize = $0 })
                             .onClickGesture(count: 2, perform: addNewNode)
-                            .frame(width: geo.size.width * imagePreference.imageScale, height: geo.size.height * imagePreference.imageScale)
-            
+                            .frame(
+                                width: geo.size.width * imagePreference.imageScale,
+                                height: geo.size.height * imagePreference.imageScale)
                     }
                 }
             } else {
@@ -34,13 +36,7 @@ struct AnnotationView: View {
         }
         .padding()
         .disabled(imageSize == nil || imageViewSize == nil)
-        .onReceive(imageStoreController.$selection) { selection in
-            if let selection = selection {
-                annotationController.loadAnnotation(forImageUrl: selection)
-            } else {
-                annotationController.reset()
-            }
-        }
+        .onReceive(imageStoreController.$selection, perform: loadAnnotation(url:))
         .environmentObject(annotationController)
     }
     
@@ -61,13 +57,21 @@ struct AnnotationView: View {
         }
         
         let keypoint = Keypoint(
-            name: "",
+            name: labelsController.selection,
             x: Double(location.x / imageViewSize.width * imageSize.width),
             y: Double(location.y / imageViewSize.height * imageSize.height)
         )
          
         annotationController.add(keypoint: keypoint, imageUrl: imageUrl, imageSize: imageSize)
         annotationController.save(imageUrl, imageSize: imageSize)
+    }
+    
+    func loadAnnotation(url: URL?) {
+        if let url = url {
+            annotationController.loadAnnotation(forImageUrl: url)
+        } else {
+            annotationController.reset()
+        }
     }
 }
 

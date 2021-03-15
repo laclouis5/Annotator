@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AnnotationTreeView: View {
     @EnvironmentObject private var annotationController: AnnotationController
-    
+    @EnvironmentObject private var labelsController: LabelsController
     @AppStorage("keypointRadius") private var radius: Double = 5
     @AppStorage("keypointOpacity") private var opacity: Double = 1/2
     
@@ -34,12 +34,14 @@ struct AnnotationTreeView: View {
     func keypointView(node: KeypointNode) -> some View {
         ZStack {
             Circle()
-                .fill(colorFor(node: node).opacity(opacity))
+                .fill(colorForNode(node).opacity(opacity))
+            
+            Circle()
+                .stroke(Color.black.opacity(opacity), lineWidth: 1.5)
             
             if annotationController.selection === node {
                 Circle()
-                    .stroke(lineWidth: 1.5)
-                    .fill(Color.white.opacity(opacity))
+                    .stroke(Color.white, lineWidth: 1.5)
             }
         }
         .frame(width: CGFloat(radius) * 2, height: CGFloat(radius) * 2)
@@ -47,12 +49,7 @@ struct AnnotationTreeView: View {
             x: CGFloat(node.value.x) / imageSize.width * imageViewSize.width - CGFloat(radius),
             y: CGFloat(node.value.y) / imageSize.height * imageViewSize.height - CGFloat(radius))
         .gesture(tapOrDragGesture(node: node))
-        .contextMenu {
-            Button("Remove") {
-                annotationController.remove(node: node)
-                annotationController.save(imageUrl, imageSize: imageSize)
-            }
-        }
+        .contextMenu { menuItems(node: node) }
     }
     
     func connectionView(start: KeypointNode, stop: KeypointNode) -> some View {
@@ -75,8 +72,10 @@ struct AnnotationTreeView: View {
         }
     }
     
-    func colorFor(node: KeypointNode) -> Color {
-        if node.isRoot {
+    func colorForNode(_ node: KeypointNode) -> Color {
+        if node.value.name != nil {
+            return .blue
+        } else if node.isRoot {
             return .red
         } else if node.isLeaf {
             return .green
@@ -86,7 +85,35 @@ struct AnnotationTreeView: View {
     }
     
     func colorForConnection(from start: KeypointNode, to stop: KeypointNode) -> Color {
-        colorFor(node: start)
+        colorForNode(start)
+    }
+    
+    func nameBinding(for node: KeypointNode) -> Binding<String?> {
+        Binding {
+            node.value.name
+        } set: {
+            annotationController.objectWillChange.send()
+            node.value.name = $0
+            annotationController.save(imageUrl, imageSize: imageSize)
+        }
+    }
+    
+    @ViewBuilder
+    func menuItems(node: KeypointNode) -> some View {
+        Button(action: {
+            annotationController.remove(node: node)
+            annotationController.save(imageUrl, imageSize: imageSize)
+        }) {
+            Label("Remove", systemSymbol: .trash)
+        }
+        
+        Picker(selection: nameBinding(for: node), label: Label("Label", systemSymbol: .pencil)) {
+            Text("None").tag(String?.none)
+
+            ForEach(labelsController.labels, id: \.self) { label in
+                Text(label).tag(String?.some(label))
+            }
+        }
     }
     
     func tapOrDragGesture(node: KeypointNode) -> some Gesture {

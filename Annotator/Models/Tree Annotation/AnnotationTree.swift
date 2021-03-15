@@ -16,19 +16,19 @@ struct AnnotationTree {
     var imageSize: Size<Double>?
 }
 
-extension AnnotationTree {
-    mutating func resolveNodeNames() {
-        tree.traverse { node in
-            if node === tree.root {
-                node.value.name = "root"
-            } else if node.children.isEmpty {
-                node.value.name = "leaf"
-            } else {
-                node.value.name = "part"
-            }
-        }
-    }
-}
+//extension AnnotationTree {
+//    mutating func resolveNodeNames() {
+//        tree.traverse { node in
+//            if node === tree.root {
+//                node.value.name = "root"
+//            } else if node.children.isEmpty {
+//                node.value.name = "leaf"
+//            } else {
+//                node.value.name = "part"
+//            }
+//        }
+//    }
+//}
 
 //extension AnnotationTree: Equatable, Hashable { }
 

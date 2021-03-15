@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		B9272A4E25F531B000F45E04 /* Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9272A4D25F531B000F45E04 /* Optional.swift */; };
 		B9272A5825F57A2D00F45E04 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9272A5725F57A2D00F45E04 /* SettingsView.swift */; };
+		B974961D25FC1072002B02A8 /* InspectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B974961C25FC1072002B02A8 /* InspectorView.swift */; };
+		B974962125FE843B002B02A8 /* Array+RawRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B974962025FE843B002B02A8 /* Array+RawRepresentable.swift */; };
+		B974962525FE849E002B02A8 /* LabelsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B974962425FE849E002B02A8 /* LabelsController.swift */; };
 		B98969B825F002BD00455136 /* AnnotatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98969B725F002BD00455136 /* AnnotatorApp.swift */; };
 		B98969BA25F002BD00455136 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98969B925F002BD00455136 /* MainView.swift */; };
 		B98969BC25F002C200455136 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B98969BB25F002C200455136 /* Assets.xcassets */; };
@@ -71,6 +74,9 @@
 /* Begin PBXFileReference section */
 		B9272A4D25F531B000F45E04 /* Optional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Optional.swift; sourceTree = "<group>"; };
 		B9272A5725F57A2D00F45E04 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		B974961C25FC1072002B02A8 /* InspectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorView.swift; sourceTree = "<group>"; };
+		B974962025FE843B002B02A8 /* Array+RawRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+RawRepresentable.swift"; sourceTree = "<group>"; };
+		B974962425FE849E002B02A8 /* LabelsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelsController.swift; sourceTree = "<group>"; };
 		B98969B425F002BD00455136 /* Annotator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Annotator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B98969B725F002BD00455136 /* AnnotatorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotatorApp.swift; sourceTree = "<group>"; };
 		B98969B925F002BD00455136 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -205,6 +211,7 @@
 			children = (
 				B9914BFF25F0F35B00E9C8CE /* ImageStoreController.swift */,
 				B9914BF725F0F28700E9C8CE /* AnnotationController.swift */,
+				B974962425FE849E002B02A8 /* LabelsController.swift */,
 				B9CA854225FB8E5B00583861 /* ImageScalePreference.swift */,
 			);
 			path = Controllers;
@@ -252,6 +259,7 @@
 				B9914C2925F13C0000E9C8CE /* Sequence.swift */,
 				B9272A4D25F531B000F45E04 /* Optional.swift */,
 				B9CDA44225F3F2BA00613662 /* DebugPrint.swift */,
+				B974962025FE843B002B02A8 /* Array+RawRepresentable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -272,6 +280,7 @@
 				B99DF27325F150EF00A7C43E /* AnnotationView.swift */,
 				B9F1CBE225F3951C00395E29 /* AnnotationTreeView.swift */,
 				B9914C1E25F1211F00E9C8CE /* ImageView.swift */,
+				B974961C25FC1072002B02A8 /* InspectorView.swift */,
 			);
 			path = AnnotationView;
 			sourceTree = "<group>";
@@ -414,6 +423,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B974961D25FC1072002B02A8 /* InspectorView.swift in Sources */,
 				B9ADC24325F7F52400B1199F /* Cache.swift in Sources */,
 				B9272A5825F57A2D00F45E04 /* SettingsView.swift in Sources */,
 				B9914C1F25F1211F00E9C8CE /* ImageView.swift in Sources */,
@@ -431,9 +441,11 @@
 				B9B9A4DB25F52D3D00205FEC /* Tree.swift in Sources */,
 				B99DF26E25F14F1700A7C43E /* SidebarView.swift in Sources */,
 				B99DF27425F150EF00A7C43E /* AnnotationView.swift in Sources */,
+				B974962125FE843B002B02A8 /* Array+RawRepresentable.swift in Sources */,
 				B9914BF825F0F28700E9C8CE /* AnnotationController.swift in Sources */,
 				B9914C2A25F13C0100E9C8CE /* Sequence.swift in Sources */,
 				B98969BA25F002BD00455136 /* MainView.swift in Sources */,
+				B974962525FE849E002B02A8 /* LabelsController.swift in Sources */,
 				B9914C0825F0FD5D00E9C8CE /* FilterField.swift in Sources */,
 				B98969B825F002BD00455136 /* AnnotatorApp.swift in Sources */,
 				B9F43F7225FA64C00091F49E /* ScrollViewOffset.swift in Sources */,

@@ -122,8 +122,7 @@ final class AnnotationController: ObservableObject {
     func save(_ imageUrl: URL, imageSize: CGSize) {
         do {
             let size = Size(cgSize: imageSize)
-            var annotation = AnnotationTree(imageUrl: imageUrl, tree: tree, imageSize: size)
-            annotation.resolveNodeNames()
+            let annotation = AnnotationTree(imageUrl: imageUrl, tree: tree, imageSize: size)
             let data = try encoder.encode(annotation)
             let saveUrl = imageUrl.deletingPathExtension().appendingPathExtension("json")
             try data.write(to: saveUrl)

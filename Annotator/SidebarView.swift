@@ -16,6 +16,7 @@ struct SidebarView: View {
                 Section(header: Text("Image List")) {
                     ForEach(store.images, id: \.self) { image in
                         Text(image.lastPathComponent)
+                            .font(Font.body.monospacedDigit())
                     }
                 }
             }

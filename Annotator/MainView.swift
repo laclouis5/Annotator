@@ -11,18 +11,25 @@ import SFSafeSymbols
 struct MainView: View {
     @StateObject private var imageStore = ImageStoreController()
     @StateObject private var imagePreference = ImageScalePreference()
+    @StateObject private var labelsController = LabelsController()
     @State private var isPresented: Bool = false
     
     var body: some View {
         NavigationView {
             SidebarView()
-            AnnotationView()
-                .toolbar(content: toolbarItems)
+            HStack(spacing: 0) {
+                Spacer()
+                AnnotationView()
+                    .toolbar(content: toolbarItems)
+                Spacer()
+                InspectorView()
+            }
         }
         .frame(minWidth: 1000, minHeight: 600)
         .sheet(isPresented: $isPresented, content: SettingsView.init)
         .environmentObject(imageStore)
         .environmentObject(imagePreference)
+        .environmentObject(labelsController)
     }
     
     func toolbarItems() -> some ToolbarContent {

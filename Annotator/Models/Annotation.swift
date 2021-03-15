@@ -79,7 +79,7 @@ struct Box<C: Real> {
 }
 
 struct Keypoint<C: Real> {
-    var name: String
+    var name: String?
     var x, y: C
 }
 
