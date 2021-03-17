@@ -65,10 +65,11 @@ struct AnnotationTreeView: View {
         }
         .stroke(lineWidth: 3)
         .foregroundColor(colorForConnection(from: start, to: stop).opacity(opacity))
-        .onClickGesture(count: 2) { location in
+        .onClickGesture(count: 1) { location in
             let x = Double(location.x / imageViewSize.width * imageSize.width)
             let y = Double(location.y / imageViewSize.height * imageSize.height)
-            annotationController.insert(keypoint: Keypoint(name: "", x: x, y: y), before: stop)
+            let keypoint = Keypoint(name: labelsController.selection, x: x, y: y)
+            annotationController.insert(keypoint: keypoint, before: stop)
         }
     }
     
