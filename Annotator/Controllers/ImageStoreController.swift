@@ -17,25 +17,22 @@ final class ImageStoreController: ObservableObject {
     @Published var folder: URL?
     
     /// All the images in the folder.
-    @Published private(set) var allImages: [URL]
+    @Published private(set) var allImages: [URL] = []
     
     /// The filtered list of images.
-    @Published private(set) var images: [URL]
+    @Published private(set) var images: [URL] = []
     
     /// The filter predicate.
-    @Published var filterText: String
+    @Published var filterText: String = ""
     
     /// The selected image.
     @Published var selection: URL?
     
+    @Published var filterAnnotated: Bool = false
+    
     private var fileManager = FileManager.default
     
     init(folder: URL? = nil) {
-        self.folder = folder
-        self.allImages = []
-        self.images = []
-        self.filterText = ""
-        
         // Publisher that updates the image list when folder is changed.
         $folder
             .removeDuplicates()
@@ -53,18 +50,26 @@ final class ImageStoreController: ObservableObject {
             .assign(to: &$allImages)
         
         // Publisher that updates the filtered image list when either the list or the filter text change.
-        Publishers.CombineLatest(
+        Publishers.CombineLatest3(
             $allImages,
             $filterText
                 .throttle(for: .milliseconds(150), scheduler: DispatchQueue.main, latest: true)
                 .map { text in text.trimmingCharacters(in: .whitespacesAndNewlines) }
-                .removeDuplicates()
+                .removeDuplicates(),
+            $filterAnnotated
         )
-        .map { (imageList, filterText) -> [URL] in
-            if filterText.isEmpty {
-                return imageList
+        .map { (imageList, filterText, filterAnnotated) -> [URL] in
+            var filtered = imageList
+            
+            if filterAnnotated {
+                filtered = imageList.filter { self.isAnnotated($0) }
             }
-            return imageList.filter { $0.lastPathComponent.contains(filterText) }
+            
+            if filterText.isEmpty {
+                return filtered
+            }
+            
+            return filtered.filter { $0.lastPathComponent.contains(filterText) }
         }
         .receive(on: DispatchQueue.main)
         .assign(to: &$images)

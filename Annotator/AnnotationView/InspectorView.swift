@@ -27,6 +27,7 @@ struct InspectorView: View {
                 }
                 .disabled(labelsController.isDisabled)
                 .buttonStyle(BorderlessButtonStyle())
+                .help("Tap to remove the current label")
             }
             
             TextField("New label", text: $newLabel, onCommit: appendLabel)

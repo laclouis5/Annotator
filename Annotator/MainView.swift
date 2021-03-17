@@ -39,24 +39,31 @@ struct MainView: View {
                 Button(action: { imagePreference.imageScale = min(max(imagePreference.imageScale / 2, 1.0), 5) }) {
                     Image(systemSymbol: .minusMagnifyingglass)
                 }
+                .help("Tap to decrease the image size")
+                
                 Button(action: { imagePreference.imageScale = 1 }) {
                     Image(systemSymbol: ._1Magnifyingglass)
                 }
+                .help("Tap to reset the image size to default")
+                
                 Button(action: { imagePreference.imageScale = min(max(imagePreference.imageScale * 2, 1.0), 5) }) {
                     Image(systemSymbol: .plusMagnifyingglass)
                 }
+                .help("Tap to increase image size")
             }
             
             ToolbarItem(placement: .automatic) {
                 Button(action: { isPresented.toggle() }) {
                     Image(systemSymbol: .gear)
                 }
+                .help("Open settings")
             }
 
             ToolbarItem(placement: .navigation) {
                 Button(action: openPanel) {
                     Image(systemSymbol: .folder)
                 }
+                .help("Tap to open a folder")
             }
         }
     }

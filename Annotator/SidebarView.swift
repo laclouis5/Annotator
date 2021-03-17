@@ -31,8 +31,17 @@ struct SidebarView: View {
             
             Divider()
 
-            FilterField("Filter", text: $store.filterText)
-                .padding(4)
+            HStack(spacing: 4) {
+                FilterField("Filter", text: $store.filterText)
+                
+                Image(systemSymbol: .aCircleFill)
+                    .foregroundColor(store.filterAnnotated ? .blue : .gray)
+                    .onTapGesture {
+                        store.filterAnnotated.toggle()
+                    }
+                    .help("Tap to show only annotated images")
+            }
+            .padding(4)
         }
         .frame(minWidth: 200)
         .toolbar(content: toolbarItems)
@@ -44,6 +53,7 @@ struct SidebarView: View {
             Button(action: toggleSidebar) {
                 Image(systemSymbol: .sidebarLeft)
             }
+            .help("Tap to hide sidebar")
         }
     }
     
