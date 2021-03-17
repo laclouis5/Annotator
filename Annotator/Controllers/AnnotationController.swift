@@ -18,11 +18,7 @@ final class AnnotationController: ObservableObject {
     /// The selected node.
     @Published var selection: KeypointNode?
     
-    private let encoder: JSONEncoder = {
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = .prettyPrinted
-        return encoder
-    }()
+    private let encoder = JSONEncoder()
     
     private let decoder = JSONDecoder()
     

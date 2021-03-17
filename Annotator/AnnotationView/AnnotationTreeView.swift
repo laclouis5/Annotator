@@ -35,10 +35,10 @@ struct AnnotationTreeView: View {
         ZStack {
             Circle()
                 .fill(colorForNode(node).opacity(opacity))
-            
+
             Circle()
                 .stroke(Color.black.opacity(opacity), lineWidth: 1.5)
-            
+
             if annotationController.selection === node {
                 Circle()
                     .stroke(Color.white, lineWidth: 1.5)
@@ -63,7 +63,7 @@ struct AnnotationTreeView: View {
                 y: CGFloat(stop.value.y) / imageSize.height * imageViewSize.height)
             )
         }
-        .stroke(lineWidth: 3)
+        .stroke(lineWidth: 4)
         .foregroundColor(colorForConnection(from: start, to: stop).opacity(opacity))
         .onClickGesture(count: 1) { location in
             let x = Double(location.x / imageViewSize.width * imageSize.width)
@@ -74,10 +74,10 @@ struct AnnotationTreeView: View {
     }
     
     func colorForNode(_ node: KeypointNode) -> Color {
-        if node.value.name != nil {
-            return .blue
-        } else if node.isRoot {
+        if node.isRoot {
             return .red
+        } else if node.value.name != nil {
+            return .blue
         } else if node.isLeaf {
             return .green
         } else {
@@ -86,9 +86,11 @@ struct AnnotationTreeView: View {
     }
     
     func colorForConnection(from start: KeypointNode, to stop: KeypointNode) -> Color {
-        colorForNode(start)
+        colorForNode(stop)
     }
     
+    /// Workaround because did not declared KeypointNode as `ObservableObject`.
+    /// Should create view models for this instead.
     func nameBinding(for node: KeypointNode) -> Binding<String?> {
         Binding {
             node.value.name

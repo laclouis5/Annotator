@@ -28,6 +28,8 @@ final class ImageStoreController: ObservableObject {
     /// The selected image.
     @Published var selection: URL?
     
+    private var fileManager = FileManager.default
+    
     init(folder: URL? = nil) {
         self.folder = folder
         self.allImages = []
@@ -62,9 +64,7 @@ final class ImageStoreController: ObservableObject {
             if filterText.isEmpty {
                 return imageList
             }
-            
-            let filtered = imageList.filter { $0.lastPathComponent.contains(filterText) }
-            return filtered
+            return imageList.filter { $0.lastPathComponent.contains(filterText) }
         }
         .receive(on: DispatchQueue.main)
         .assign(to: &$images)
@@ -74,5 +74,10 @@ final class ImageStoreController: ObservableObject {
             .map(\.first)
             .receive(on: DispatchQueue.main)
             .assign(to: &$selection)
+    }
+    
+    func isAnnotated(_ url: URL) -> Bool {
+        let jsonUrl = url.deletingPathExtension().appendingPathExtension("json")
+        return fileManager.fileExists(atPath: jsonUrl.path)
     }
 }

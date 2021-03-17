@@ -15,8 +15,16 @@ struct SidebarView: View {
             List(selection: $store.selection) {
                 Section(header: Text("Image List")) {
                     ForEach(store.images, id: \.self) { image in
-                        Text(image.lastPathComponent)
-                            .font(Font.body.monospacedDigit())
+                        HStack {
+                            Text(image.lastPathComponent)
+                                .font(Font.body.monospacedDigit())
+                            
+                            Spacer()
+                            
+                            if store.isAnnotated(image) {
+                                Image(systemSymbol: .aCircleFill)
+                            }
+                        }
                     }
                 }
             }
