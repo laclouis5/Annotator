@@ -8,30 +8,31 @@
 import SwiftUI
 
 struct AnnotationTreeView: View {
-    @EnvironmentObject private var annotationController: AnnotationController
-    @EnvironmentObject private var labelsController: LabelsController
-    @AppStorage("keypointRadius") private var radius: Double = 5
-    @AppStorage("keypointOpacity") private var opacity: Double = 1/2
-    
     let imageViewSize: CGSize
     let imageSize: CGSize
     let imageUrl: URL
+    
+    @EnvironmentObject private var annotationController: AnnotationController
+    @EnvironmentObject private var labelsController: LabelsController
+    @AppStorage("keypointRadius") private var radius: Double = 6
+    @AppStorage("keypointOpacity") private var opacity: Double = 0.6
     
     var body: some View {
         ZStack(alignment: .topLeading) {
             GeometryReader { _ in
                 ForEach(annotationController.nodes) { node in
                     ForEach(node.children) { child in
-                        connectionView(start: node, stop: child)
+                        connectionView(from: node, to: child)
                     }
                     
-                    keypointView(node: node)
+                    keypointView(node)
                 }
             }
         }
+        .drawingGroup()
     }
     
-    func keypointView(node: KeypointNode) -> some View {
+    func keypointView(_ node: KeypointNode) -> some View {
         ZStack {
             Circle()
                 .fill(colorForNode(node).opacity(opacity))
@@ -52,7 +53,7 @@ struct AnnotationTreeView: View {
         .contextMenu { menuItems(node: node) }
     }
     
-    func connectionView(start: KeypointNode, stop: KeypointNode) -> some View {
+    func connectionView(from start: KeypointNode, to stop: KeypointNode) -> some View {
         Path { path in
             path.move(to: CGPoint(
                 x: CGFloat(start.value.x) / imageSize.width * imageViewSize.width,
@@ -63,8 +64,7 @@ struct AnnotationTreeView: View {
                 y: CGFloat(stop.value.y) / imageSize.height * imageViewSize.height)
             )
         }
-        .stroke(lineWidth: 4)
-        .foregroundColor(colorForConnection(from: start, to: stop).opacity(opacity))
+        .stroke(colorForConnection(from: start, to: stop).opacity(opacity), lineWidth: 4)
         .onClickGesture(count: 1) { location in
             let x = Double(location.x / imageViewSize.width * imageSize.width)
             let y = Double(location.y / imageViewSize.height * imageSize.height)
@@ -94,9 +94,9 @@ struct AnnotationTreeView: View {
     func nameBinding(for node: KeypointNode) -> Binding<String?> {
         Binding {
             node.value.name
-        } set: {
+        } set: { newValue in
             annotationController.objectWillChange.send()
-            node.value.name = $0
+            node.value.name = newValue
             annotationController.save(imageUrl, imageSize: imageSize)
         }
     }
@@ -123,7 +123,7 @@ struct AnnotationTreeView: View {
         DragGesture(minimumDistance: 2)
             .onChanged { value in
                 annotationController.move(node: node,
-                    x: Double(value.location.x / imageViewSize.width * imageSize.width) ,
+                    x: Double(value.location.x / imageViewSize.width * imageSize.width),
                     y: Double(value.location.y / imageViewSize.height * imageSize.height)
                 )
             }

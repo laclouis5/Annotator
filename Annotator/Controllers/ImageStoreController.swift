@@ -28,6 +28,7 @@ final class ImageStoreController: ObservableObject {
     /// The selected image.
     @Published var selection: URL?
     
+    /// Wether to filter or not the annotated images.
     @Published var filterAnnotated: Bool = false
     
     private var fileManager = FileManager.default
@@ -81,6 +82,10 @@ final class ImageStoreController: ObservableObject {
             .assign(to: &$selection)
     }
     
+    /// Returns `true` if the image `URL` provided has input has a corresponding
+    /// json annotation in the same folder.
+    /// - Parameter url: The image URL.
+    /// - Returns: `true` if the input image URL has a corresponding annotation.
     func isAnnotated(_ url: URL) -> Bool {
         let jsonUrl = url.deletingPathExtension().appendingPathExtension("json")
         return fileManager.fileExists(atPath: jsonUrl.path)

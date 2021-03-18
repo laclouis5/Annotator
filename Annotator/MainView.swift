@@ -34,19 +34,18 @@ struct MainView: View {
     
     func toolbarItems() -> some ToolbarContent {
         Group {
-//            min(max(imagePreference.imageScale * scale, 1.0)
             ToolbarItemGroup(placement: .automatic) {
-                Button(action: { imagePreference.imageScale = min(max(imagePreference.imageScale / 2, 1.0), 5) }) {
+                Button(action: imagePreference.decreaseImageScale) {
                     Image(systemSymbol: .minusMagnifyingglass)
                 }
                 .help("Tap to decrease the image size")
                 
-                Button(action: { imagePreference.imageScale = 1 }) {
+                Button(action: imagePreference.resetImageScale) {
                     Image(systemSymbol: ._1Magnifyingglass)
                 }
                 .help("Tap to reset the image size to default")
                 
-                Button(action: { imagePreference.imageScale = min(max(imagePreference.imageScale * 2, 1.0), 5) }) {
+                Button(action: imagePreference.increaseImageScale) {
                     Image(systemSymbol: .plusMagnifyingglass)
                 }
                 .help("Tap to increase image size")

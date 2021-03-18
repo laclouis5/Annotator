@@ -10,7 +10,6 @@ import AppKit
 
 struct ImageView: View {
     let url: URL
-    
     @Binding var imageSize: CGSize?
     
     var nsImage: NSImage {

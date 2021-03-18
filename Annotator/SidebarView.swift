@@ -14,38 +14,44 @@ struct SidebarView: View {
         VStack(spacing: 0) {
             List(selection: $store.selection) {
                 Section(header: Text("Image List")) {
-                    ForEach(store.images, id: \.self) { image in
-                        HStack {
-                            Text(image.lastPathComponent)
-                                .font(Font.body.monospacedDigit())
-                            
-                            Spacer()
-                            
-                            if store.isAnnotated(image) {
-                                Image(systemSymbol: .aCircleFill)
-                            }
-                        }
-                    }
+                    ForEach(store.images, id: \.self, content: rowImageView)
                 }
             }
             
             Divider()
 
-            HStack(spacing: 4) {
-                FilterField("Filter", text: $store.filterText)
-                
-                Image(systemSymbol: .aCircleFill)
-                    .foregroundColor(store.filterAnnotated ? .blue : .gray)
-                    .onTapGesture {
-                        store.filterAnnotated.toggle()
-                    }
-                    .help("Tap to show only annotated images")
-            }
-            .padding(4)
+            filterView
         }
         .frame(minWidth: 200)
         .toolbar(content: toolbarItems)
         .listStyle(SidebarListStyle())
+    }
+    
+    func rowImageView(_ url: URL) -> some View {
+        HStack {
+            Text(url.lastPathComponent)
+                .font(Font.body.monospacedDigit())
+            
+            Spacer()
+            
+            if store.isAnnotated(url) {
+                Image(systemSymbol: .aCircleFill)
+            }
+        }
+    }
+    
+    var filterView: some View {
+        HStack(spacing: 4) {
+            FilterField("Filter", text: $store.filterText)
+            
+            Image(systemSymbol: .aCircleFill)
+                .foregroundColor(store.filterAnnotated ? .blue : .gray)
+                .onTapGesture {
+                    store.filterAnnotated.toggle()
+                }
+                .help("Tap to show only annotated images")
+        }
+        .padding(4)
     }
     
     func toolbarItems() -> some ToolbarContent {

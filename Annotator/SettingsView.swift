@@ -8,10 +8,8 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @AppStorage("keypointRadius") private var radius: Double = 5
-    @AppStorage("keypointOpacity") private var opacity: Double = 1/2
-    @State private var leafColor: Color = .green
-    
+    @AppStorage("keypointRadius") private var radius: Double = 6
+    @AppStorage("keypointOpacity") private var opacity: Double = 0.6
     @Environment(\.presentationMode) var presentationMode
     
     static var percentFormatter: NumberFormatter = {
@@ -29,7 +27,7 @@ struct SettingsView: View {
             Section(header: Text("Visual Interface").font(.headline)) {
                 Slider(
                     value: $radius,
-                    in: 2...20,
+                    in: 2...10,
                     minimumValueLabel: Text(""),
                     maximumValueLabel: Text("\(Int(radius))").font(Font.body.monospacedDigit())
                 ) {
@@ -51,8 +49,8 @@ struct SettingsView: View {
             
             HStack {
                 Button("Restore Defaults") {
-                    radius = 5
-                    opacity = 1/2
+                    radius = 6
+                    opacity = 0.6
                 }
                 
                 Spacer()
