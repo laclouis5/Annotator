@@ -19,7 +19,6 @@ final class AnnotationController: ObservableObject {
     @Published var selection: KeypointNode?
     
     private let encoder = JSONEncoder()
-    
     private let decoder = JSONDecoder()
     
     init(tree: KeypointTree = .init()) {

@@ -10,12 +10,12 @@ import Foundation
 final class Node<Value> {
     var value: Value
     private(set) var children: [Node<Value>]
-    weak var parent: Node<Value>?
+    weak private(set) var parent: Node<Value>?
  
-    init(_ value: Value, children: [Node] = [], parent: Node? = nil) {
+    init(_ value: Value, children: [Node] = []) {
         self.value = value
         self.children = children
-        self.parent = parent
+        self.parent = nil
     }
 }
 
@@ -70,6 +70,14 @@ extension Node {
     func insert(_ value: Value, before child: Node) {
         insert(Node(value), before: child)
     }
+    
+    func resolveParents() {
+        traverse { node in
+            node.children.forEach { child in
+                child.parent = node
+            }
+        }
+    }
 }
 
 extension Node {
@@ -91,17 +99,17 @@ extension Node {
     }
 }
 
-//extension Node: Equatable where Value: Equatable {
-//    static func == (lhs: Node, rhs: Node) -> Bool {
-//        lhs.value == rhs.value
-//    }
-//}
-//
-//extension Node: Hashable where Value: Hashable {
-//    func hash(into hasher: inout Hasher) {
-//        hasher.combine(value)
-//    }
-//}
+extension Node: Equatable where Value: Equatable {
+    static func == (lhs: Node, rhs: Node) -> Bool {
+        lhs.value == rhs.value
+    }
+}
+
+extension Node: Hashable where Value: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(value)
+    }
+}
 
 extension Node: Codable where Value: Codable {
     enum Keys: String, CodingKey {

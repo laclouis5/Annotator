@@ -12,7 +12,6 @@ final class Tree<Value> {
     
     init(root: Node<Value>? = nil) {
         self.root = root
-        root?.parent = nil
     }
 }
 
@@ -22,11 +21,7 @@ extension Tree {
     }
     
     func resolveParents() {
-        root?.traverse { node in
-            node.children.forEach { child in
-                child.parent = node
-            }
-        }
+        root?.resolveParents()
     }
 }
 
@@ -48,17 +43,17 @@ extension Tree {
     }
 }
 
-//extension Tree: Equatable where Value: Equatable {
-//    static func == (lhs: Tree, rhs: Tree) -> Bool {
-//        lhs.root == rhs.root
-//    }
-//}
-//
-//extension Tree: Hashable where Value: Hashable {
-//    func hash(into hasher: inout Hasher) {
-//        hasher.combine(root)
-//    }
-//}
+extension Tree: Equatable where Value: Equatable {
+    static func == (lhs: Tree, rhs: Tree) -> Bool {
+        lhs.root == rhs.root
+    }
+}
+
+extension Tree: Hashable where Value: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(root)
+    }
+}
 
 extension Tree: Codable where Value: Codable {
     convenience init(from decoder: Decoder) throws {
