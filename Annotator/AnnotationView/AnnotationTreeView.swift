@@ -46,9 +46,9 @@ struct AnnotationTreeView: View {
             }
         }
         .frame(width: CGFloat(radius) * 2, height: CGFloat(radius) * 2)
-        .offset(
-            x: CGFloat(node.value.x) / imageSize.width * imageViewSize.width - CGFloat(radius),
-            y: CGFloat(node.value.y) / imageSize.height * imageViewSize.height - CGFloat(radius))
+        .position(
+            x: CGFloat(node.value.x) / imageSize.width * imageViewSize.width,
+            y: CGFloat(node.value.y) / imageSize.height * imageViewSize.height)
         .gesture(tapOrDragGesture(node: node))
         .contextMenu { menuItems(node: node) }
     }
@@ -109,6 +109,7 @@ struct AnnotationTreeView: View {
         }) {
             Label("Remove", systemSymbol: .trash)
         }
+        .keyboardShortcut(.delete)
         
         Picker(selection: nameBinding(for: node), label: Label("Label", systemSymbol: .pencil)) {
             Text("None").tag(String?.none)

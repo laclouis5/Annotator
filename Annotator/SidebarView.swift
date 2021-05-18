@@ -49,7 +49,7 @@ struct SidebarView: View {
                 .onTapGesture {
                     store.filterAnnotated.toggle()
                 }
-                .help("Tap to show only annotated images")
+                .help("only show annotated images")
         }
         .padding(4)
     }
@@ -59,7 +59,7 @@ struct SidebarView: View {
             Button(action: toggleSidebar) {
                 Image(systemSymbol: .sidebarLeft)
             }
-            .help("Tap to hide sidebar")
+            .help("hide sidebar")
         }
     }
     

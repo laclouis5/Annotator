@@ -38,31 +38,31 @@ struct MainView: View {
                 Button(action: imagePreference.decreaseImageScale) {
                     Image(systemSymbol: .minusMagnifyingglass)
                 }
-                .help("Tap to decrease the image size")
+                .help("decrease the image size")
                 
                 Button(action: imagePreference.resetImageScale) {
                     Image(systemSymbol: ._1Magnifyingglass)
                 }
-                .help("Tap to reset the image size to default")
+                .help("reset the image size to default")
                 
                 Button(action: imagePreference.increaseImageScale) {
                     Image(systemSymbol: .plusMagnifyingglass)
                 }
-                .help("Tap to increase image size")
+                .help("increase image size")
             }
             
             ToolbarItem(placement: .automatic) {
                 Button(action: { isPresented.toggle() }) {
                     Image(systemSymbol: .gear)
                 }
-                .help("Open settings")
+                .help("open settings")
             }
 
             ToolbarItem(placement: .navigation) {
                 Button(action: openPanel) {
                     Image(systemSymbol: .folder)
                 }
-                .help("Tap to open a folder")
+                .help("open a folder")
             }
         }
     }
