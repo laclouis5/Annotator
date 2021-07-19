@@ -91,8 +91,8 @@ struct Object<C: Real> {
 
 struct Annotation<C: Real> {
     var imageURL: URL
-    var objects: [Object<C>] = []
     var imageSize: Size<C>?
+    var objects: [Object<C>] = []
 }
 
 // MARK: - Equatable Conformance
