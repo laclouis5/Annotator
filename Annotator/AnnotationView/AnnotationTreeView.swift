@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct AnnotationTreeView: View {
-    let imageViewSize: CGSize
     let imageSize: CGSize
+    let scale: Double
     let imageUrl: URL
     
     @EnvironmentObject private var annotationController: AnnotationController
@@ -47,8 +47,8 @@ struct AnnotationTreeView: View {
         }
         .frame(width: CGFloat(radius) * 2, height: CGFloat(radius) * 2)
         .position(
-            x: CGFloat(node.value.x) / imageSize.width * imageViewSize.width,
-            y: CGFloat(node.value.y) / imageSize.height * imageViewSize.height)
+            x: CGFloat(node.value.x) * scale,
+            y: CGFloat(node.value.y) * scale)
         .gesture(tapOrDragGesture(node: node))
         .contextMenu { menuItems(node: node) }
     }
@@ -56,18 +56,18 @@ struct AnnotationTreeView: View {
     func connectionView(from start: KeypointNode, to stop: KeypointNode) -> some View {
         Path { path in
             path.move(to: CGPoint(
-                x: CGFloat(start.value.x) / imageSize.width * imageViewSize.width,
-                y: CGFloat(start.value.y) / imageSize.height * imageViewSize.height)
+                x: CGFloat(start.value.x) * scale,
+                y: CGFloat(start.value.y) * scale)
             )
             path.addLine(to: CGPoint(
-                x: CGFloat(stop.value.x) / imageSize.width * imageViewSize.width,
-                y: CGFloat(stop.value.y) / imageSize.height * imageViewSize.height)
+                x: CGFloat(stop.value.x) * scale,
+                y: CGFloat(stop.value.y) * scale)
             )
         }
         .stroke(colorForConnection(from: start, to: stop).opacity(opacity), lineWidth: 4)
         .onClickGesture(count: 1) { location in
-            let x = Double(location.x / imageViewSize.width * imageSize.width)
-            let y = Double(location.y / imageViewSize.height * imageSize.height)
+            let x = Double(location.x * scale)
+            let y = Double(location.y * scale)
             let keypoint = Keypoint(name: labelsController.selection, x: x, y: y)
             annotationController.insert(keypoint: keypoint, before: stop)
         }
@@ -89,7 +89,7 @@ struct AnnotationTreeView: View {
         colorForNode(stop)
     }
     
-    /// Workaround because did not declared KeypointNode as `ObservableObject`.
+    /// Workaround because did not declare KeypointNode as `ObservableObject`.
     /// Should create view models for this instead.
     func nameBinding(for node: KeypointNode) -> Binding<String?> {
         Binding {
@@ -103,13 +103,14 @@ struct AnnotationTreeView: View {
     
     @ViewBuilder
     func menuItems(node: KeypointNode) -> some View {
-        Button(action: {
+        Button(role: .destructive) {
             annotationController.remove(node: node)
             annotationController.save(imageUrl, imageSize: imageSize)
-        }) {
+        } label: {
             Label("Remove", systemSymbol: .trash)
         }
         .keyboardShortcut(.delete)
+
         
         Picker(selection: nameBinding(for: node), label: Label("Label", systemSymbol: .pencil)) {
             Text("None").tag(String?.none)
@@ -121,47 +122,46 @@ struct AnnotationTreeView: View {
     }
     
     func tapOrDragGesture(node: KeypointNode) -> some Gesture {
-        DragGesture(minimumDistance: 2)
-            .onChanged { value in
+        DragGesture(minimumDistance: 2).onChanged { value in
+            annotationController.move(node: node,
+                x: Double(value.location.x / scale),
+                y: Double(value.location.y / scale)
+            )
+        }
+        .exclusively(before: TapGesture())
+        .onEnded { (value) in
+            switch value {
+            case .first(let value):
                 annotationController.move(node: node,
-                    x: Double(value.location.x / imageViewSize.width * imageSize.width),
-                    y: Double(value.location.y / imageViewSize.height * imageSize.height)
-                )
+                    x: Double(value.location.x / scale),
+                    y: Double(value.location.y / scale))
+                annotationController.save(imageUrl, imageSize: imageSize)
+            case .second:
+                annotationController.selection = node
             }
-            .exclusively(before: TapGesture())
-            .onEnded { (value) in
-                switch value {
-                case .first(let value):
-                    annotationController.move(node: node,
-                        x: Double(value.location.x / imageViewSize.width * imageSize.width),
-                        y: Double(value.location.y / imageViewSize.height * imageSize.height))
-                    annotationController.save(imageUrl, imageSize: imageSize)
-                case .second:
-                    annotationController.selection = node
-                }
-            }
+        }
     }
 }
 
-struct TreeView_Previews: PreviewProvider {
-    static let controller = AnnotationController(
-        tree: KeypointTree(
-            root: KeypointNode(
-                Keypoint(name: "root", x: 0, y: 0),
-                children: [/*
-                    KeypointNode(Keypoint(name: "first", x: 100, y: 100), children: [])
-                */]
-            )
-        )
-    )
-    
-    static var previews: some View {
-        AnnotationTreeView(
-            imageViewSize: CGSize(width: 800, height: 1000),
-            imageSize: CGSize(width: 2048, height: 2448),
-            imageUrl: URL(string: "/tmp/image.jpg")!
-        )
-        .frame(width: 400, height: 600)
-        .environmentObject(Self.controller)
-    }
-}
+//struct TreeView_Previews: PreviewProvider {
+//    static let controller = AnnotationController(
+//        tree: KeypointTree(
+//            root: KeypointNode(
+//                Keypoint(name: "root", x: 0, y: 0),
+//                children: [/*
+//                    KeypointNode(Keypoint(name: "first", x: 100, y: 100), children: [])
+//                */]
+//            )
+//        )
+//    )
+//
+//    static var previews: some View {
+//        AnnotationTreeView(
+//            imageViewSize: CGSize(width: 800, height: 1000),
+//            imageSize: CGSize(width: 2048, height: 2448),
+//            imageUrl: URL(string: "/tmp/image.jpg")!
+//        )
+//        .frame(width: 400, height: 600)
+//        .environmentObject(Self.controller)
+//    }
+//}

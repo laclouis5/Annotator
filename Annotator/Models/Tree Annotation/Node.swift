@@ -99,17 +99,17 @@ extension Node {
     }
 }
 
-extension Node: Equatable where Value: Equatable {
-    static func == (lhs: Node, rhs: Node) -> Bool {
-        lhs.value == rhs.value
-    }
-}
-
-extension Node: Hashable where Value: Hashable {
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(value)
-    }
-}
+//extension Node: Equatable where Value: Equatable {
+//    static func == (lhs: Node, rhs: Node) -> Bool {
+//        lhs.value == rhs.value
+//    }
+//}
+//
+//extension Node: Hashable where Value: Hashable {
+//    func hash(into hasher: inout Hasher) {
+//        hasher.combine(value)
+//    }
+//}
 
 extension Node: Codable where Value: Codable {
     enum Keys: String, CodingKey {

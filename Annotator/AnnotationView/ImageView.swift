@@ -11,37 +11,22 @@ import AppKit
 struct ImageView: View {
     let url: URL
     @Binding var imageSize: CGSize?
-    
-    var nsImage: NSImage {
-        NSImage(byReferencing: url)
-    }
+    @State private var nsImage: NSImage?
     
     var body: some View {
-        Image(nsImage: nsImage)
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .onAppear { imageSize = size }
-    }
-    
-    var size: CGSize? {
-        guard let source = CGImageSourceCreateWithURL(url as CFURL, nil) else {
-            return nil
-        }
-        
-        let propertiesOptions = [kCGImageSourceShouldCache: false] as CFDictionary
-        guard let properties = CGImageSourceCopyPropertiesAtIndex(source, 0, propertiesOptions) as? [CFString: Any] else {
-            return nil
-        }
-        
-        if var width = properties[kCGImagePropertyPixelWidth] as? CGFloat,
-           var height = properties[kCGImagePropertyPixelHeight] as? CGFloat,
-           let orientation = properties[kCGImagePropertyOrientation] as? Int {
-            if orientation == 6 || orientation == 8 {
-                swap(&width, &height)
+        Group {
+            if let nsImage = nsImage {
+                Image(nsImage: nsImage)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .onAppear { imageSize = nsImage.size }
             }
-            return CGSize(width: width, height: height)
-        } else {
-            return nil
+        }
+        .onAppear {
+            nsImage = NSImage(contentsOf: url)
+        }
+        .onChange(of: url) { newValue in
+            nsImage = NSImage(contentsOf: newValue)
         }
     }
 }

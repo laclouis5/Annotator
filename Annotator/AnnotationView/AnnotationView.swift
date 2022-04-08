@@ -11,10 +11,11 @@ import RealModule
 struct AnnotationView: View {
     @EnvironmentObject private var imageStoreController: ImageStoreController
     @EnvironmentObject private var labelsController: LabelsController
-    @EnvironmentObject private var imagePreference: ImageScalePreference
     @StateObject private var annotationController = AnnotationController()
+    @StateObject private var imagePreference = ImageScalePreference()
     @State private var imageViewSize: CGSize?
     @State private var imageSize: CGSize?
+    @State private var isPresented: Bool = false
     
     var body: some View {
         Group {
@@ -37,13 +38,63 @@ struct AnnotationView: View {
         .padding()
         .disabled(imageSize == nil || imageViewSize == nil)
         .onReceive(imageStoreController.$selection, perform: loadAnnotation(url:))
+        .toolbar(content: toolbarItems)
+        .sheet(isPresented: $isPresented, content: SettingsView.init)
         .environmentObject(annotationController)
+        .environmentObject(imagePreference)
+    }
+    
+    func toolbarItems() -> some ToolbarContent {
+        Group {
+            ToolbarItemGroup(placement: .automatic) {
+                Button(action: imagePreference.decreaseImageScale) {
+                    Image(systemSymbol: .minusMagnifyingglass)
+                }
+                .help("decrease the image size")
+                
+                Button(action: imagePreference.resetImageScale) {
+                    Image(systemSymbol: ._1Magnifyingglass)
+                }
+                .help("reset the image size to default")
+                
+                Button(action: imagePreference.increaseImageScale) {
+                    Image(systemSymbol: .plusMagnifyingglass)
+                }
+                .help("increase image size")
+            }
+            
+            ToolbarItem(placement: .automatic) {
+                Button(action: { isPresented.toggle() }) {
+                    Image(systemSymbol: .gear)
+                }
+                .help("open settings")
+            }
+
+            ToolbarItem(placement: .navigation) {
+                Button(action: openPanel) {
+                    Image(systemSymbol: .folder)
+                }
+                .help("open a folder")
+            }
+        }
+    }
+    
+    func openPanel() {
+        let panel = NSOpenPanel()
+        panel.canChooseFiles = false
+        panel.canChooseDirectories = true
+        panel.allowsMultipleSelection = false
+        panel.canHide = true
+        
+        if panel.runModal() == .OK {
+            imageStoreController.folder = panel.url
+        }
     }
     
     @ViewBuilder
     var annotationView: some View {
         if let imageViewSize = imageViewSize, let imageSize = imageSize, let imageUrl = imageStoreController.selection {
-            AnnotationTreeView(imageViewSize: imageViewSize, imageSize: imageSize, imageUrl: imageUrl)
+            AnnotationTreeView(imageSize: imageSize, scale: imageViewSize.width / imageSize.width, imageUrl: imageUrl)
         } else {
             Text("Cannot read image size.")
         }
@@ -55,13 +106,13 @@ struct AnnotationView: View {
               let imageViewSize = imageViewSize else {
             return
         }
-        
+
         let keypoint = Keypoint(
             name: labelsController.selection,
             x: Double(location.x / imageViewSize.width * imageSize.width),
             y: Double(location.y / imageViewSize.height * imageSize.height)
         )
-         
+
         annotationController.add(keypoint: keypoint, imageUrl: imageUrl, imageSize: imageSize)
         annotationController.save(imageUrl, imageSize: imageSize)
     }
